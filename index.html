@@ -2,266 +2,162 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>uangkas-cikizz - V10</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>uangkas-cikizz V12 AUTO</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-*{font-family:'Outfit',sans-serif}
-.mono{font-family:'JetBrains Mono',monospace}
-body{background:#030305;color:#fff}
-.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);border-radius:20px}
-.input{width:100%;height:48px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;outline:none}
-.btn{height:48px;border-radius:12px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer}
-#flashOverlay{position:fixed;inset:0;z-index:99999;display:none;pointer-events:none;background:white}
-@keyframes kedip{0%,100%{background:white}50%{background:red}}
+body{background:#030305;color:#fff;margin:0;font-family:sans-serif}
+.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:20px}
+.input{width:100%;height:48px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:0 16px;color:#fff;outline:none;box-sizing:border-box}
+.btn{height:50px;border-radius:12px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;width:100%}
+#flashOverlay{position:fixed;inset:0;z-index:999999;display:none;pointer-events:none}
+.mono{font-family:monospace;font-size:11px}
 </style>
 </head>
 <body>
 <div id="flashOverlay"></div>
-<div id="app" class="min-h-screen flex items-center justify-center p-4 relative z-10">
+<div id="app" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;position:relative;z-index:10">
 
-<div id="loginPage" class="w-full max-w-[420px]">
-<div class="text-center mb-6">
-<div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center font-bold text-white">Rp</div>
-<h1 class="mt-4 font-[800] text-[24px]">uangkas-cikizz.vercel.app</h1>
-<p class="mono text-[11px] text-white/30">Domain asli - Total 8000 - V10 Fix Senter</p>
+<div id="loginPage" style="width:100%;max-width:420px">
+<div style="text-align:center;margin-bottom:20px">
+<div style="width:56px;height:56px;margin:0 auto;border-radius:16px;background:linear-gradient(135deg,#a855f7,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:900">Rp</div>
+<h1 style="font-weight:900;font-size:20px;margin-top:12px">uangkas-cikizz V12 AUTO</h1>
+<p class="mono" style="color:rgba(255,255,255,0.4)">Admin nyalain → Member login langsung nyala otomatis!</p>
 </div>
-<div class="card p-6">
-<div class="flex gap-2 mb-5">
-<button id="tabAdmin" onclick="switchTab('admin')" class="flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]">ADMIN ZETSU</button>
-<button id="tabMember" onclick="switchTab('member')" class="flex-1 h-10 rounded-full bg-white/5 border text-[13px]">MEMBER</button>
+<div class="card">
+<div style="display:flex;gap:8px;margin-bottom:16px">
+<button id="tabAdmin" onclick="switchTab('admin')" style="flex:1;height:40px;border-radius:999px;background:white;color:black;font-weight:700;border:none">ADMIN</button>
+<button id="tabMember" onclick="switchTab('member')" style="flex:1;height:40px;border-radius:999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">MEMBER</button>
 </div>
-<div id="adminForm">
-<input id="adminUser" class="input mb-3" value="Zetsu">
-<input id="adminPass" type="password" class="input mb-3" value="Zetsu1">
-<button onclick="loginAdmin()" class="btn w-full bg-white text-black">LOGIN ADMIN</button>
-</div>
-<div id="memberForm" class="hidden">
-<div class="grid grid-cols-4 gap-2 mb-3">
-<button onclick="quickLogin('KIZZ')" class="h-11 rounded-xl bg-red-500 text-white font-bold">KIZZ</button>
-<button onclick="quickLogin('AYU')" class="h-11 rounded-xl bg-white/5 border font-bold">AYU</button>
-<button onclick="quickLogin('AAL')" class="h-11 rounded-xl bg-white/5 border font-bold">AAL</button>
-<button onclick="quickLogin('ARDI')" class="h-11 rounded-xl bg-white/5 border font-bold">ARDI</button>
-</div>
-<input id="memberUser" class="input mb-3" placeholder="KIZZ / AYU / AAL / ARDI">
-<button onclick="loginMember()" class="btn w-full bg-gradient-to-r from-cyan-400 to-violet-500 text-black">LOGIN MEMBER</button>
-</div>
-<div class="mt-4 p-3 rounded-xl bg-white/5 border mono text-[10px] text-white/40 text-center">
-Domain harus sama: uangkas-cikizz.vercel.app<br>Admin & Member buka link yang sama!
-</div>
+<div id="adminForm"><input id="adminUser" class="input" style="margin-bottom:12px" value="Zetsu"><input id="adminPass" type="password" class="input" style="margin-bottom:12px" value="Zetsu1"><button onclick="loginAdmin()" class="btn" style="background:white;color:black">LOGIN ADMIN</button></div>
+<div id="memberForm" style="display:none"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px"><button onclick="quickLogin('KIZZ')" style="height:44px;border-radius:12px;background:#ef4444;color:white;font-weight:700;border:none">KIZZ</button><button onclick="quickLogin('AYU')" style="height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">AYU</button><button onclick="quickLogin('AAL')" style="height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">AAL</button><button onclick="quickLogin('ARDI')" style="height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">ARDI</button></div><input id="memberUser" class="input" style="margin-bottom:12px" placeholder="KIZZ, AYU, AAL, ARDI"><button onclick="loginMember()" class="btn" style="background:linear-gradient(90deg,#22d3ee,#a855f7);color:black">LOGIN MEMBER</button></div>
 </div>
 </div>
 
-<div id="memberPage" class="hidden w-full max-w-[700px]">
-<div class="flex justify-between items-center mb-4">
-<div class="flex items-center gap-3"><div id="memberInitial" class="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center font-bold">K</div><div><div id="memberName" class="font-bold">KIZZ</div><div class="mono text-[10px] text-emerald-400">uangkas-cikizz.vercel.app • SYNC</div></div></div>
-<button onclick="logout()" class="h-9 px-4 rounded-full bg-white/5 border mono text-[11px]">LOGOUT</button>
+<div id="memberPage" style="display:none;width:100%;max-width:700px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="display:flex;gap:12px;align-items:center"><div id="memberInitial" style="width:40px;height:40px;border-radius:12px;background:white;color:black;display:flex;align-items:center;justify-content:center;font-weight:900">K</div><div><div id="memberName" style="font-weight:800">KIZZ</div><div class="mono" style="color:#22c55e">● AUTO SENTER READY</div></div></div><button onclick="logout()" style="height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white" class="mono">LOGOUT</button></div>
+
+<div id="senterBox" style="display:none" class="card">
+<div style="text-align:center"><div style="font-size:48px">🔦</div><div style="font-weight:900;font-size:20px;margin-top:8px">SENTER NAGIH AKTIF OTOMATIS!</div><div id="senterText" style="margin-top:8px;font-weight:700;color:#facc15">WOY AAL! bayar!</div><div class="mono" style="margin-top:4px;color:rgba(255,255,255,0.6)">Otomatis nyala pas login - tanpa tap!</div></div>
+<div id="torchStatus" class="mono" style="margin-top:12px;padding:10px;border-radius:10px;background:black">Status: OFF</div>
+<button onclick="stopTorch()" style="margin-top:8px" class="btn" style="background:black;border:1px solid rgba(255,255,255,0.2);color:white">MATIIN SENTER (BAYAR DULU!)</button>
 </div>
 
-<div id="senterBox" class="hidden card p-6 mb-4 bg-red-500/20 border-red-500/50" style="border-width:2px">
-<div class="text-center">
-<div class="text-[50px]">🔦</div>
-<div class="font-[800] text-[20px]">SENTER NAGIH AKTIF!</div>
-<div id="senterText" class="mono text-[13px] mt-2 font-bold text-yellow-300">KIZZ hutang 4000!</div>
-</div>
-<div class="mt-4">
-<button onclick="startTorch()" class="w-full h-14 rounded-xl bg-white text-black font-bold text-[16px]">🔦 TAP UNTUK NYALAIN SENTER + LAYAR KEDIP</button>
-<button onclick="stopTorch()" class="w-full h-11 mt-2 rounded-xl bg-black border text-white mono text-[11px]">MATIIN SENTER</button>
-</div>
-<div id="torchStatus" class="mono text-[11px] mt-3 p-2 rounded bg-black/60">Status: OFF</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px"><div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">TOTAL KAS</div><div id="memberTotal" style="font-size:36px;font-weight:900">Rp 8.000</div></div><div class="card" style="border-color:rgba(239,68,68,0.3)"><div style="font-weight:700;color:#f87171;font-size:13px">BELUM BAYAR</div><div id="memberBelum" style="margin-top:8px" class="mono"></div></div></div>
+
+<div class="card" style="margin-bottom:12px"><div class="mono" style="color:rgba(255,255,255,0.4)">STATUS KAMU</div><div id="memberStatus" style="margin-top:8px"></div></div>
+
+<div class="card"><h3 style="font-weight:700">Bayar - Wajib Foto</h3><div style="display:flex;gap:8px;margin:12px 0"><button onclick="setAmt(2000)" id="a2000" style="flex:1;height:44px;border-radius:12px;background:white;color:black;font-weight:800;border:none">2000</button><button onclick="setAmt(4000)" id="a4000" style="flex:1;height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">4000</button></div><input type="file" id="foto" accept="image/*" class="input" style="height:auto;padding:12px 0 12px 12px"><img id="preview" style="display:none;width:100%;height:180px;object-fit:cover;border-radius:12px;margin-top:8px"><button onclick="submitBayar()" class="btn" style="margin-top:12px;background:linear-gradient(90deg,#34d399,#22d3ee);color:black">KIRIM BUKTI → SENTER MATI</button></div>
 </div>
 
-<div class="grid md:grid-cols-2 gap-4 mb-4">
-<div class="card p-6"><div class="mono text-[11px] text-white/30">TOTAL KAS</div><div id="memberTotal" class="text-[40px] font-[800]">Rp 8.000</div><div class="mono text-[11px] text-white/30">Approved: ARDI,AAL kemarin + AYU hari ini</div></div>
-<div class="card p-6 border-red-500/20"><div class="font-bold text-[13px] text-red-400">SIAPA BELUM BAYAR</div><div id="memberBelum" class="mt-3 mono text-[12px]"></div></div>
-</div>
+<div id="adminPage" style="display:none;width:100%;max-width:1000px">
+<div style="display:flex;justify-content:space-between;margin-bottom:20px"><div style="display:flex;gap:12px;align-items:center"><div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-weight:900">Z</div><div><div style="font-weight:800">ADMIN ZETSU - AUTO MODE</div><div class="mono" style="color:#4ade80">● Pas nyalain, member login langsung nyala otomatis</div></div></div><button onclick="logout()" style="height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white" class="mono">LOGOUT</button></div>
 
-<div class="card p-6 mb-4"><div class="mono text-[11px] text-white/30">STATUS KAMU</div><div id="memberStatus" class="mt-3"></div></div>
+<div class="card" style="margin-bottom:16px;background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3)"><h3 style="font-weight:800;margin:0">🔦 KONTROL SENTER AUTO V12</h3><p class="mono" style="color:rgba(255,255,255,0.5);margin:8px 0 12px 0">Admin nyalain → Member (AAL di foto lu) login → Langsung kedip otomatis tanpa tap!</p><div id="adminSenterList"></div><div style="display:flex;gap:8px;margin-top:12px"><button onclick="sendSenterAll()" style="flex:1;height:56px;border-radius:12px;background:#ef4444;color:white;font-weight:800;border:none;font-size:16px">🔦 NYALAIN SENTER SEMUA AUTO</button><button onclick="stopSenterAll()" style="flex:1;height:56px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white;font-weight:700">MATIIN SEMUA</button></div><div id="shareLinkBox" style="display:none;margin-top:12px;padding:12px;border-radius:12px;background:black;border:1px solid rgba(255,255,255,0.2)"><div class="mono" style="color:#facc15">LINK AUTO (Kalo beda HP, share ini):</div><div id="shareLink" style="margin-top:8px;word-break:break-all;background:rgba(255,255,255,0.05);padding:10px;border-radius:8px;font-size:12px"></div><button onclick="shareWA()" style="margin-top:8px;height:40px;border-radius:10px;background:#25D366;color:white;font-weight:700;border:none;width:100%">📲 SHARE WA - BUKA LANGSUNG NYALA!</button></div></div>
 
-<div class="card p-6">
-<h3 class="font-bold mb-3">Bayar - Wajib Foto Bukti</h3>
-<div class="flex gap-2 mb-3"><button onclick="setAmt(2000)" id="a2000" class="flex-1 h-11 rounded-xl bg-white text-black font-bold">2000</button><button onclick="setAmt(4000)" id="a4000" class="flex-1 h-11 rounded-xl bg-white/5 border">4000</button></div>
-<input type="file" id="foto" accept="image/*" class="input !h-auto py-3 text-[13px]">
-<img id="preview" class="hidden w-full h-[180px] object-cover rounded-xl mt-2">
-<button onclick="submitBayar()" class="btn w-full mt-3 bg-gradient-to-r from-emerald-400 to-cyan-500 text-black font-bold">KIRIM BUKTI → SENTER OTOMATIS MATI</button>
-</div>
-</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px"><div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">TOTAL</div><div id="adminTotal" style="font-size:24px;font-weight:900">Rp 8.000</div></div><div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">PENDING</div><div id="adminPending" style="font-size:24px;font-weight:900">0</div></div><div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">SENTER AKTIF</div><div id="adminSenterCount" style="font-size:24px;font-weight:900">0 HP</div></div></div>
 
-<div id="adminPage" class="hidden w-full max-w-[1000px]">
-<div class="flex justify-between mb-6"><div class="flex gap-3 items-center"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center font-bold">Z</div><div><div class="font-bold">ADMIN ZETSU</div><div class="mono text-[10px] text-white/30">uangkas-cikizz.vercel.app</div></div></div><button onclick="logout()" class="h-9 px-4 rounded-full bg-white/5 border mono text-[11px]">LOGOUT</button></div>
-
-<div class="card p-6 mb-6 bg-red-500/10 border-red-500/30">
-<h3 class="font-bold">🔦 KONTROL SENTER - DOMAIN ASLI</h3><p class="mono text-[11px] text-white/40 mt-1 mb-4">Pastikan semua buka uangkas-cikizz.vercel.app - kalo beda domain gak sync! Foto HP Kuromi lu kemarin gak nyala karena beda domain + torch fisik gak support - sekarang pake layar kedip pasti nyala!</p>
-<div id="adminSenterList" class="space-y-2"></div>
-<div class="flex gap-2 mt-4">
-<button onclick="sendSenterAll()" class="flex-1 h-14 rounded-xl bg-red-500 text-white font-bold">🔦 NYALAIN SENTER SEMUA YANG BELUM BAYAR</button>
-<button onclick="stopSenterAll()" class="flex-1 h-12 rounded-xl bg-white/5 border">MATIIN SEMUA</button>
-</div>
-</div>
-
-<div class="grid md:grid-cols-3 gap-4 mb-6">
-<div class="card p-6"><div class="mono text-[10px] text-white/30">TOTAL</div><div id="adminTotal" class="text-[28px] font-[800]">Rp 8.000</div></div>
-<div class="card p-6"><div class="mono text-[10px] text-white/30">PENDING</div><div id="adminPending" class="text-[28px] font-[800]">0</div></div>
-<div class="card p-6"><div class="mono text-[10px] text-white/30">SENTER AKTIF</div><div id="adminSenterCount" class="text-[28px] font-[800]">0 HP</div></div>
-</div>
-
-<div class="card p-6"><h3 class="font-bold mb-3">Pending Approval</h3><div id="pendingList"></div></div>
+<div class="card"><h3 style="font-weight:800;margin:0 0 12px 0">Pending Approval</h3><div id="pendingList"></div></div>
 </div>
 
 </div>
 
 <script>
 const ORANG=['KIZZ','AYU','AAL','ARDI'];
-const DOMAIN='uangkas-cikizz.vercel.app';
-const KEY_DATA='uangkas_v10_data';
-const KEY_PENDING='uangkas_v10_pending';
-const KEY_SENTER='uangkas_v10_senter';
-
+const KEY_DATA='uangkas_v12_data';
+const KEY_PENDING='uangkas_v12_pending';
+const KEY_SENTER='uangkas_v12_senter';
 let data=JSON.parse(localStorage.getItem(KEY_DATA)||'null');
 if(!data){ data={'2026-11-02':{AAL:{amount:2000,approved:true},ARDI:{amount:2000,approved:true}},'2026-11-03':{AYU:{amount:4000,approved:true}}}; localStorage.setItem(KEY_DATA,JSON.stringify(data)); }
 let pending=JSON.parse(localStorage.getItem(KEY_PENDING)||'[]');
 let senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
-
 let currentUser=null, bayarAmount=2000;
 let torchStream=null, torchTrack=null, torchInterval=null, screenFlashInterval=null;
 
-function switchTab(t){ document.getElementById('tabAdmin').className=t==='admin'?'flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]':'flex-1 h-10 rounded-full bg-white/5 border text-[13px]'; document.getElementById('tabMember').className=t==='member'?'flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]':'flex-1 h-10 rounded-full bg-white/5 border text-[13px]'; document.getElementById('adminForm').classList.toggle('hidden',t!=='admin'); document.getElementById('memberForm').classList.toggle('hidden',t!=='member'); }
+function switchTab(t){ document.getElementById('tabAdmin').style.background=t==='admin'?'white':'rgba(255,255,255,0.05)'; document.getElementById('tabAdmin').style.color=t==='admin'?'black':'white'; document.getElementById('tabMember').style.background=t==='member'?'white':'rgba(255,255,255,0.05)'; document.getElementById('tabMember').style.color=t==='member'?'black':'white'; document.getElementById('adminForm').style.display=t==='admin'?'block':'none'; document.getElementById('memberForm').style.display=t==='member'?'block':'none'; }
 function quickLogin(n){ document.getElementById('memberUser').value=n; loginMember(); }
+
+// FIX V12 - LOGIN LANGSUNG NYALAIN SENTER OTOMATIS!
+function loginMember(){
+ let u=document.getElementById('memberUser').value.trim().toUpperCase();
+ if(!ORANG.includes(u)){ alert('Harus KIZZ, AYU, AAL, ARDI'); return; }
+ currentUser=u;
+ showPage('member');
+ // CEK APAKAH ADMIN UDAH NYALAIN SENTER SEBELUMNYA
+ // KALO IYA, LANGSUNG NYALAIN OTOMATIS - KARENA LOGIN INI UDAH GESTURE!
+ setTimeout(()=>{
+   senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
+   if(senterData[currentUser]){
+     console.log('AUTO NYALAIN SENTER UNTUK', currentUser);
+     startTorch(); // OTOMATIS - GAK PERLU TAP!
+   }
+   checkUrlParams();
+ }, 500);
+}
 function loginAdmin(){ if(document.getElementById('adminUser').value==='Zetsu' && document.getElementById('adminPass').value==='Zetsu1'){ currentUser='Zetsu'; showPage('admin'); } else alert('Salah!'); }
-function loginMember(){ let u=document.getElementById('memberUser').value.trim().toUpperCase(); if(ORANG.includes(u)){ currentUser=u; showPage('member'); } else alert('Harus KIZZ,AYU,AAL,ARDI'); }
-function showPage(p){ document.getElementById('loginPage').classList.add('hidden'); document.getElementById('memberPage').classList.add('hidden'); document.getElementById('adminPage').classList.add('hidden'); if(p==='member'){ document.getElementById('memberPage').classList.remove('hidden'); document.getElementById('memberName').textContent=currentUser; document.getElementById('memberInitial').textContent=currentUser[0]; renderMember(); } if(p==='admin'){ document.getElementById('adminPage').classList.remove('hidden'); renderAdmin(); } }
+function showPage(p){ document.getElementById('loginPage').style.display='none'; document.getElementById('memberPage').style.display='none'; document.getElementById('adminPage').style.display='none'; if(p==='member'){ document.getElementById('memberPage').style.display='block'; document.getElementById('memberName').textContent=currentUser; document.getElementById('memberInitial').textContent=currentUser[0]; renderMember(); } if(p==='admin'){ document.getElementById('adminPage').style.display='block'; renderAdmin(); } }
 function logout(){ stopTorch(); location.reload(); }
-function setAmt(a){ bayarAmount=a; document.getElementById('a2000').className=a===2000?'flex-1 h-11 rounded-xl bg-white text-black font-bold':'flex-1 h-11 rounded-xl bg-white/5 border'; document.getElementById('a4000').className=a===4000?'flex-1 h-11 rounded-xl bg-white text-black font-bold':'flex-1 h-11 rounded-xl bg-white/5 border'; }
-document.getElementById('foto').addEventListener('change',e=>{ let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=ev=>{ let img=document.getElementById('preview'); img.src=ev.target.result; img.classList.remove('hidden'); }; r.readAsDataURL(f); });
+function setAmt(a){ bayarAmount=a; document.getElementById('a2000').style.background=a===2000?'white':'rgba(255,255,255,0.05)'; document.getElementById('a2000').style.color=a===2000?'black':'white'; document.getElementById('a4000').style.background=a===4000?'white':'rgba(255,255,255,0.05)'; document.getElementById('a4000').style.color=a===4000?'black':'white'; }
+document.getElementById('foto').addEventListener('change',e=>{ let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=ev=>{ let img=document.getElementById('preview'); img.src=ev.target.result; img.style.display='block'; }; r.readAsDataURL(f); });
 
 function getTotal(){ let t=0; Object.values(data).forEach(d=>Object.values(d).forEach(v=>{ if(v.approved) t+=v.amount; })); return t; }
 function getBelum(){ let belum=[]; let today='2026-11-03'; ORANG.forEach(n=>{ let hasToday=data[today]&&data[today][n]&&data[today][n].approved; let hasPend=pending.find(p=>p.nama===n&&p.tanggal===today&&p.status==='pending'); if(!hasToday&&!hasPend){ if(n==='KIZZ') belum.push({nama:n, hutang:'2 hari = Rp 4.000'}); else if(n==='AAL'||n==='ARDI') belum.push({nama:n, hutang:'hari ini = Rp 2.000'}); } }); return belum; }
 
-// SENTER V10 - FIX TOTAL - LAYAR KEDIP PASTI NYALA
+function checkUrlParams(){
+ const params=new URLSearchParams(window.location.search);
+ const s=params.get('senter');
+ const msg=params.get('msg');
+ if(s){
+   const target=s.toUpperCase();
+   if(target===currentUser || target==='ALL'){
+     senterData[currentUser]={msg:msg||`WOY ${currentUser}! Bayar kas!`, time:Date.now()};
+     localStorage.setItem(KEY_SENTER,JSON.stringify(senterData));
+     renderMember();
+     setTimeout(()=>startTorch(), 300);
+   }
+ }
+}
+
 async function startTorch(){
  const statusEl=document.getElementById('torchStatus');
  const overlay=document.getElementById('flashOverlay');
- statusEl.textContent='🔄 Mencoba nyalain...';
+ statusEl.textContent='🔦 SENTER NYALA OTOMATIS!';
  stopTorch();
-
- // Selalu coba torch fisik dulu
  try{
-   const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-   torchStream=stream;
-   torchTrack=stream.getVideoTracks()[0];
+   const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+   torchStream=stream; torchTrack=stream.getVideoTracks()[0];
    const caps=torchTrack.getCapabilities();
-   if(caps.torch){
-     await torchTrack.applyConstraints({ advanced: [{ torch: true }] });
-     statusEl.textContent='✅ SENTER FISIK NYALA!';
-     let on=true;
-     torchInterval=setInterval(async()=>{
-       try{ await torchTrack.applyConstraints({ advanced: [{ torch: on }] }); on=!on; }catch(e){}
-     }, 200);
-   }
- }catch(e){
-   console.log('Torch fisik gagal (wajar di HP Kuromi):', e.message);
-   statusEl.textContent='⚠️ Torch fisik gak support - Pakai layar kedip super terang!';
- }
-
- // INI YANG PASTI NYALA DI FOTO HP KUROMI LU!
- // Layar full putih-merah kedip cepat
- let isWhite=true;
- overlay.style.display='block';
- screenFlashInterval=setInterval(()=>{
-   overlay.style.background = isWhite ? '#ffffff' : '#ff0000';
-   overlay.style.display = 'block';
-   isWhite=!isWhite;
- }, 80); // 80ms super cepat - bikin silau!
-
- if(navigator.vibrate) navigator.vibrate([400,100,400,100,1000]);
- statusEl.textContent += ' + 💡 LAYAR KEDIP AKTIF!';
+   if(caps.torch){ await torchTrack.applyConstraints({advanced:[{torch:true}]}); let on=true; torchInterval=setInterval(async()=>{ try{ await torchTrack.applyConstraints({advanced:[{torch:on}]}); on=!on; }catch(e){} },200); }
+ }catch(e){ console.log('Torch gagal, pakai layar', e.message); }
+ let isWhite=true; overlay.style.display='block';
+ screenFlashInterval=setInterval(()=>{ overlay.style.background=isWhite?'#ffffff':'#ff0000'; isWhite=!isWhite; },80);
+ if(navigator.vibrate) navigator.vibrate([500,100,500,100,1000]);
+ statusEl.textContent='✅ OTOMATIS NYALA! Layar kedip putih-merah + senter fisik (kalo support)!';
 }
 
-function stopTorch(){
- if(torchInterval) clearInterval(torchInterval);
- if(screenFlashInterval) clearInterval(screenFlashInterval);
- if(torchTrack){ try{ torchTrack.applyConstraints({ advanced: [{ torch: false }] }); }catch(e){} torchTrack.stop(); }
- if(torchStream){ torchStream.getTracks().forEach(t=>t.stop()); }
- const overlay=document.getElementById('flashOverlay');
- if(overlay) overlay.style.display='none';
- document.body.style.background='#030305';
- torchStream=null; torchTrack=null;
- document.getElementById('torchStatus').textContent='OFF - Senter mati';
-}
+function stopTorch(){ if(torchInterval) clearInterval(torchInterval); if(screenFlashInterval) clearInterval(screenFlashInterval); if(torchTrack){ try{ torchTrack.applyConstraints({advanced:[{torch:false}]}); }catch(e){} torchTrack.stop(); } if(torchStream){ torchStream.getTracks().forEach(t=>t.stop()); } const overlay=document.getElementById('flashOverlay'); if(overlay) overlay.style.display='none'; document.body.style.background='#030305'; torchStream=null; torchTrack=null; const el=document.getElementById('torchStatus'); if(el) el.textContent='OFF - Senter mati'; }
 
-function submitBayar(){
- let file=document.getElementById('foto');
- if(!file.files[0]){ alert('Wajib foto!'); return; }
- let r=new FileReader();
- r.onload=ev=>{
-   let today='2026-11-03';
-   pending.push({id:Date.now(), nama:currentUser, tanggal:today, amount:bayarAmount, foto:ev.target.result, status:'pending', time:new Date().toLocaleString('id-ID')});
-   localStorage.setItem(KEY_PENDING,JSON.stringify(pending));
-   stopTorch();
-   delete senterData[currentUser];
-   localStorage.setItem(KEY_SENTER,JSON.stringify(senterData));
-   alert('Bukti terkirim! Senter mati!');
-   renderMember();
- };
- r.readAsDataURL(file.files[0]);
-}
+function submitBayar(){ let file=document.getElementById('foto'); if(!file.files[0]){ alert('Wajib foto!'); return; } let r=new FileReader(); r.onload=ev=>{ let today='2026-11-03'; pending.push({id:Date.now(), nama:currentUser, tanggal:today, amount:bayarAmount, foto:ev.target.result, status:'pending', time:new Date().toLocaleString('id-ID')}); localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); stopTorch(); delete senterData[currentUser]; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); window.history.replaceState({},'',window.location.pathname); alert('Bukti terkirim! Senter mati!'); renderMember(); }; r.readAsDataURL(file.files[0]); }
 
 function renderMember(){
  document.getElementById('memberTotal').textContent='Rp '+getTotal().toLocaleString('id-ID');
  let belum=getBelum();
- document.getElementById('memberBelum').innerHTML = belum.length===0?'<div class="text-emerald-400">✅ Semua lunas!</div>' : belum.map(b=>`<div class="flex justify-between p-2 rounded-lg ${b.nama===currentUser?'bg-red-500/20 border border-red-500/40':''}"><span class="font-bold ${b.nama===currentUser?'text-red-400':''}">${b.nama}${b.nama===currentUser?' (KAMU)':''}</span><span>${b.hutang}</span></div>`).join('');
- let today='2026-11-03';
- let isPaid=data[today]&&data[today][currentUser]&&data[today][currentUser].approved;
- document.getElementById('memberStatus').innerHTML = isPaid?`<div class="p-3 rounded-xl bg-emerald-400/10 border text-emerald-300 mono text-[11px]">✅ LUNAS Rp ${data[today][currentUser].amount}</div>` : `<div class="p-3 rounded-xl bg-red-500/10 border text-red-300 mono text-[11px]">⚠️ ${currentUser} BELUM BAYAR - Admin bisa nyalain senter HP lu!</div>`;
- 
- // CEK SENTER - INI YANG KEMARIN GAK MUNCUL KARENA BEDA DOMAIN
+ document.getElementById('memberBelum').innerHTML=belum.length===0?'<div style="color:#4ade80">✅ Semua lunas!</div>':belum.map(b=>`<div style="display:flex;justify-content:space-between;padding:6px;border-radius:8px;${b.nama===currentUser?'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3)':''}"><span style="font-weight:700;${b.nama===currentUser?'color:#f87171':''}">${b.nama}${b.nama===currentUser?' (KAMU)':''}</span><span>${b.hutang}</span></div>`).join('');
+ let today='2026-11-03'; let isPaid=data[today]&&data[today][currentUser]&&data[today][currentUser].approved;
+ document.getElementById('memberStatus').innerHTML=isPaid?`<div style="padding:10px;border-radius:12px;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);color:#4ade80" class="mono">✅ LUNAS</div>`:`<div style="padding:10px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171" class="mono">⚠️ ${currentUser} BELUM BAYAR</div>`;
  senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
- if(senterData[currentUser] && !isPaid){
-   document.getElementById('senterBox').classList.remove('hidden');
-   document.getElementById('senterText').textContent=senterData[currentUser].msg;
- } else {
-   document.getElementById('senterBox').classList.add('hidden');
-   stopTorch();
- }
+ if(senterData[currentUser]&&!isPaid){ document.getElementById('senterBox').style.display='block'; document.getElementById('senterText').textContent=senterData[currentUser].msg; } else { document.getElementById('senterBox').style.display='none'; }
 }
-
-function renderAdmin(){
- document.getElementById('adminTotal').textContent='Rp '+getTotal().toLocaleString('id-ID');
- document.getElementById('adminPending').textContent=pending.filter(p=>p.status==='pending').length;
- senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
- document.getElementById('adminSenterCount').textContent=Object.keys(senterData).length+' HP';
- let belum=getBelum();
- document.getElementById('adminSenterList').innerHTML = belum.length===0?'<div class="mono text-[11px]">Semua lunas</div>' : belum.map(b=>`
-   <div class="flex justify-between items-center p-3 rounded-xl ${senterData[b.nama]?'bg-red-500/20 border-red-500/30':''} bg-white/5 border">
-     <div><div class="font-bold">${b.nama} - ${b.hutang}</div><div class="mono text-[10px] ${senterData[b.nama]?'text-red-400':'text-white/30'}">${senterData[b.nama]?'🔦 SENTER AKTIF':''}</div></div>
-     <div class="flex gap-1">${senterData[b.nama]?`<button onclick="stopSenterOne('${b.nama}')" class="h-8 px-3 rounded-full bg-white text-black mono text-[10px]">MATIIN</button>`:`<button onclick="startSenterOne('${b.nama}')" class="h-8 px-3 rounded-full bg-red-500 text-white mono text-[10px]">🔦 NYALAIN</button>`}</div>
-   </div>
- `).join('');
- let pendList=document.getElementById('pendingList');
- let pend=pending.filter(p=>p.status==='pending');
- pendList.innerHTML = pend.length===0?'<div class="text-center py-4 text-white/20 mono text-[11px]">Gak ada pending</div>' : pend.map(p=>`
-   <div class="p-3 rounded-xl bg-white/5 border flex gap-3"><img src="${p.foto}" class="w-[70px] h-[50px] object-cover rounded-lg"><div class="flex-1"><div class="font-bold">${p.nama} Rp ${p.amount}</div><div class="mono text-[10px] text-white/40">${p.time}</div></div><div class="flex gap-1"><button onclick="approve(${p.id})" class="h-8 px-3 rounded-full bg-emerald-400 text-black mono text-[10px]">OK</button><button onclick="reject(${p.id})" class="h-8 px-3 rounded-full bg-red-500/20 text-red-300 mono text-[10px]">TOLAK</button></div></div>
- `).join('');
-}
-function startSenterOne(nama){ senterData[nama]={msg:`WOY ${nama}! ${nama==='KIZZ'?'2 hari Rp 4000':'hari ini Rp 2000'} - SENTER NYALA! Bayar!`, time:Date.now()}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); alert('Senter nyala untuk '+nama+' di domain '+DOMAIN); }
+let lastShareLink='';
+function renderAdmin(){ document.getElementById('adminTotal').textContent='Rp '+getTotal().toLocaleString('id-ID'); document.getElementById('adminPending').textContent=pending.filter(p=>p.status==='pending').length; senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}'); document.getElementById('adminSenterCount').textContent=Object.keys(senterData).length+' HP'; let belum=getBelum(); document.getElementById('adminSenterList').innerHTML=belum.length===0?'<div class="mono">Semua lunas</div>':belum.map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:12px;${senterData[b.nama]?'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3)':'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)'}"><div><div style="font-weight:800">${b.nama} - ${b.hutang}</div><div class="mono" style="${senterData[b.nama]?'color:#f87171':'color:rgba(255,255,255,0.4)'}">${senterData[b.nama]?'🔦 AKTIF - Member login langsung nyala!':''}</div></div><div>${senterData[b.nama]?`<button onclick="stopSenterOne('${b.nama}')" style="height:32px;padding:0 12px;border-radius:999px;background:white;color:black;font-weight:700;border:none" class="mono">MATIIN</button>`:`<button onclick="startSenterOne('${b.nama}')" style="height:32px;padding:0 12px;border-radius:999px;background:#ef4444;color:white;font-weight:700;border:none" class="mono">🔦 NYALAIN AUTO</button>`}</div></div>`).join(''); let pendList=document.getElementById('pendingList'); let pend=pending.filter(p=>p.status==='pending'); pendList.innerHTML=pend.length===0?'<div style="text-align:center;padding:16px;color:rgba(255,255,255,0.3)" class="mono">Gak ada pending</div>':pend.map(p=>`<div style="padding:10px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);display:flex;gap:10px;margin-bottom:8px"><img src="${p.foto}" style="width:70px;height:50px;object-fit:cover;border-radius:8px"><div style="flex:1"><div style="font-weight:700">${p.nama} Rp ${p.amount}</div><div class="mono" style="color:rgba(255,255,255,0.4)">${p.time}</div></div><div style="display:flex;gap:4px"><button onclick="approve(${p.id})" style="height:32px;padding:0 12px;border-radius:999px;background:#4ade80;color:black;font-weight:700;border:none" class="mono">OK</button><button onclick="reject(${p.id})" style="height:32px;padding:0 12px;border-radius:999px;background:rgba(239,68,68,0.2);color:#f87171;border:none" class="mono">TOLAK</button></div></div>`).join(''); }
+function startSenterOne(nama){ senterData[nama]={msg:`WOY ${nama}! ${nama==='KIZZ'?'2 hari Rp 4000':'hari ini Rp 2000'} - SENTER NYALA OTOMATIS! Bayar sekarang!`, time:Date.now()}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); const link=`https://uangkas-cikizz.vercel.app?senter=${nama}&msg=${encodeURIComponent(senterData[nama].msg)}`; lastShareLink=link; document.getElementById('shareLink').textContent=link; document.getElementById('shareLinkBox').style.display='block'; renderAdmin(); alert('Senter AUTO nyala untuk '+nama+'! Kalo HP beda, share link WA. Kalo HP sama (satu domain), '+nama+' login langsung nyala otomatis tanpa tap!'); }
 function stopSenterOne(nama){ delete senterData[nama]; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); }
-function sendSenterAll(){ let belum=getBelum(); if(belum.length===0) return alert('Semua lunas!'); belum.forEach(b=>{ senterData[b.nama]={msg:`WOY ${b.nama}! ${b.hutang} - SENTER NYALA TERUS SAMPE BAYAR!`, time:Date.now()}; }); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); alert('Senter nyala untuk '+belum.length+' orang di '+DOMAIN+' - Suruh mereka refresh di HP mereka!'); }
-function stopSenterAll(){ senterData={}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); alert('Semua senter mati!'); }
+function sendSenterAll(){ let belum=getBelum(); if(belum.length===0) return alert('Semua lunas!'); belum.forEach(b=>{ senterData[b.nama]={msg:`WOY ${b.nama}! ${b.hutang} - SENTER NYALA OTOMATIS!`, time:Date.now()}; }); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); const link=`https://uangkas-cikizz.vercel.app?senter=ALL&msg=${encodeURIComponent('WOY BAYAR KAS! Senter auto nyala!')}`; lastShareLink=link; document.getElementById('shareLink').textContent=link; document.getElementById('shareLinkBox').style.display='block'; renderAdmin(); alert('Senter AUTO nyala untuk '+belum.length+' orang! Kalo beda HP, share link WA - buka link langsung nyala otomatis!'); }
+function stopSenterAll(){ senterData={}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); document.getElementById('shareLinkBox').style.display='none'; }
+function shareWA(){ if(!lastShareLink) return; const text=`🔦 SENTER NAGIH OTOMATIS AKTIF! Buka link ini - HP lu langsung nyala otomatis tanpa tap! ${lastShareLink}`; window.open(`https://wa.me/?text=${encodeURIComponent(text)}`,'_blank'); }
 function approve(id){ let i=pending.findIndex(p=>p.id===id); if(i===-1) return; let p=pending[i]; if(!data[p.tanggal]) data[p.tanggal]={}; data[p.tanggal][p.nama]={amount:p.amount, approved:true}; p.status='approved'; delete senterData[p.nama]; localStorage.setItem(KEY_DATA,JSON.stringify(data)); localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); }
 function reject(id){ let i=pending.findIndex(p=>p.id===id); pending[i].status='rejected'; localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); renderAdmin(); }
-
-// AUTO REFRESH SENTER DATA TIAP 2 DETIK - BIAR LINTAS TAB SYNC
-setInterval(()=>{
-  const newData = JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
-  if(JSON.stringify(newData)!==JSON.stringify(senterData)){
-    senterData=newData;
-    if(currentUser){
-      if(currentUser==='Zetsu') renderAdmin();
-      else renderMember();
-    }
-  }
-}, 1000);
+window.addEventListener('load',()=>{ const params=new URLSearchParams(window.location.search); if(params.get('senter')){ const target=params.get('senter').toUpperCase(); if(ORANG.includes(target)||target==='ALL'){ document.getElementById('memberUser').value=target==='ALL'?'AAL':target; switchTab('member'); } } });
 </script>
 </body>
 </html>
