@@ -3,133 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>uangkas-cikizz V13 PERSISTENT</title>
+<title>uangkas-cikizz V14 FULL</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-body{background:#030305;color:#fff;margin:0;font-family:sans-serif}
-.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:20px}
-.input{width:100%;height:48px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:0 16px;color:#fff;outline:none;box-sizing:border-box}
+body{background:#0a0a0f;color:#fff;margin:0;font-family:Outfit,sans-serif}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:20px}
+.input{width:100%;height:48px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:0 16px;color:#fff;outline:none;box-sizing:border-box}
 .btn{height:50px;border-radius:12px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;width:100%}
-#flashOverlay{position:fixed;inset:0;z-index:999999;display:none;pointer-events:none}
-.mono{font-family:monospace;font-size:11px}
+#flashOverlay{position:fixed;inset:0;z-index:999999;display:none;pointer-events:none;background:white}
+.mono{font-family:JetBrains Mono,monospace;font-size:11px}
+.small{font-size:12px;color:rgba(255,255,255,0.5)}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="flashOverlay"></div>
-
-<script>
-// SERVICE WORKER - BIAR NOTIF TETEP HIDUP WALAU CHROME KELUAR
-if('serviceWorker' in navigator){
-  const swCode = `
-    self.addEventListener('install', e=>self.skipWaiting());
-    self.addEventListener('activate', e=>self.clients.claim());
-    self.addEventListener('push', e=>{
-      self.registration.showNotification('🔦 BAYAR KAS WOY!', {
-        body: 'SENTER NAGIH AKTIF! Buka uangkas-cikizz.vercel.app biar mati!',
-        vibrate: [500,100,500,100,1000],
-        requireInteraction: true,
-        tag: 'kas-nagih',
-        renotify: true
-      });
-    });
-    self.addEventListener('notificationclick', e=>{
-      e.notification.close();
-      e.waitUntil(clients.openWindow('https://uangkas-cikizz.vercel.app?senter=ALL'));
-    });
-  `;
-  const blob = new Blob([swCode], {type:'text/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(blob));
-}
-</script>
-
 <div id="app" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;position:relative;z-index:10">
 
-<div id="loginPage" style="width:100%;max-width:420px">
+<!-- LOGIN -->
+<div id="loginPage" style="width:100%;max-width:440px">
 <div style="text-align:center;margin-bottom:20px">
-<div style="width:56px;height:56px;margin:0 auto;border-radius:16px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-weight:900">🔦</div>
-<h1 style="font-weight:900;font-size:20px;margin-top:12px">uangkas-cikizz V13 PERSISTENT</h1>
-<p class="mono" style="color:rgba(255,255,255,0.4)">Keluar Chrome pun tetep nagih!</p>
+<div style="width:60px;height:60px;margin:0 auto;border-radius:18px;background:linear-gradient(135deg,#a855f7,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px">Rp</div>
+<h1 style="font-weight:900;font-size:22px;margin-top:12px">uangkas-cikizz.vercel.app</h1>
+<p class="mono" style="color:rgba(255,255,255,0.4)">V14 FULL - Admin lengkap + Senter Auto</p>
 </div>
 <div class="card">
 <div style="display:flex;gap:8px;margin-bottom:16px">
-<button id="tabAdmin" onclick="switchTab('admin')" style="flex:1;height:40px;border-radius:999px;background:white;color:black;font-weight:700;border:none">ADMIN</button>
-<button id="tabMember" onclick="switchTab('member')" style="flex:1;height:40px;border-radius:999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">MEMBER</button>
+<button id="tabAdmin" onclick="switchTab('admin')" style="flex:1;height:42px;border-radius:999px;background:white;color:black;font-weight:800;border:none">ADMIN ZETSU</button>
+<button id="tabMember" onclick="switchTab('member')" style="flex:1;height:42px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white">MEMBER</button>
 </div>
-<div id="adminForm"><input id="adminUser" class="input" style="margin-bottom:12px" value="Zetsu"><input id="adminPass" type="password" class="input" style="margin-bottom:12px" value="Zetsu1"><button onclick="loginAdmin()" class="btn" style="background:white;color:black">LOGIN ADMIN</button></div>
-<div id="memberForm" style="display:none"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px"><button onclick="quickLogin('KIZZ')" style="height:44px;border-radius:12px;background:#ef4444;color:white;font-weight:700;border:none">KIZZ</button><button onclick="quickLogin('AAL')" style="height:44px;border-radius:12px;background:#facc15;color:black;font-weight:700;border:none">AAL</button><button onclick="quickLogin('AYU')" style="height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">AYU</button><button onclick="quickLogin('ARDI')" style="height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">ARDI</button></div><input id="memberUser" class="input" style="margin-bottom:12px" placeholder="KIZZ, AYU, AAL, ARDI"><button onclick="loginMember()" class="btn" style="background:linear-gradient(90deg,#22d3ee,#a855f7);color:black">LOGIN MEMBER</button></div>
+<div id="adminForm"><input id="adminUser" class="input" style="margin-bottom:10px" value="Zetsu" placeholder="Username"><input id="adminPass" type="password" class="input" style="margin-bottom:10px" value="Zetsu1" placeholder="Password"><button onclick="loginAdmin()" class="btn" style="background:white;color:black">LOGIN ADMIN ZETSU</button><div class="mono" style="margin-top:10px;color:rgba(255,255,255,0.3);text-align:center">Username: Zetsu / Password: Zetsu1</div></div>
+<div id="memberForm" style="display:none"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px"><button onclick="quickLogin('KIZZ')" style="height:46px;border-radius:12px;background:#ef4444;color:white;font-weight:800;border:none">KIZZ</button><button onclick="quickLogin('AAL')" style="height:46px;border-radius:12px;background:#facc15;color:black;font-weight:800;border:none">AAL</button><button onclick="quickLogin('AYU')" style="height:46px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white;font-weight:800">AYU</button><button onclick="quickLogin('ARDI')" style="height:46px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white;font-weight:800">ARDI</button></div><input id="memberUser" class="input" style="margin-bottom:12px" placeholder="KIZZ, AYU, AAL, ARDI"><button onclick="loginMember()" class="btn" style="background:linear-gradient(90deg,#22d3ee,#a855f7);color:black">LOGIN MEMBER</button></div>
+<div style="margin-top:12px;padding:10px;border-radius:12px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2)" class="mono">Seed: ARDI,AAL kemarin 4000 + AYU hari ini 4000 = Total 8000 | KIZZ hutang 4000</div>
 </div>
 </div>
 
-<div id="memberPage" style="display:none;width:100%;max-width:700px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="display:flex;gap:12px;align-items:center"><div id="memberInitial" style="width:40px;height:40px;border-radius:12px;background:white;color:black;display:flex;align-items:center;justify-content:center;font-weight:900">A</div><div><div id="memberName" style="font-weight:800">AAL</div><div class="mono" style="color:#f87171">● PERSISTENT MODE - Keluar Chrome tetep nagih!</div></div></div><button onclick="logout()" style="height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white" class="mono">LOGOUT</button></div>
+<!-- MEMBER PAGE -->
+<div id="memberPage" style="display:none;width:100%;max-width:720px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="display:flex;gap:12px;align-items:center"><div id="memberInitial" style="width:42px;height:42px;border-radius:12px;background:white;color:black;display:flex;align-items:center;justify-content:center;font-weight:900">K</div><div><div id="memberName" style="font-weight:800">KIZZ</div><div class="mono" style="color:#22c55e">● uangkas-cikizz - Member</div></div></div><button onclick="logout()" style="height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white" class="mono">LOGOUT</button></div>
 
 <div id="senterBox" style="display:none" class="card">
-<div style="text-align:center"><div style="font-size:48px">🔦</div><div style="font-weight:900;font-size:20px;margin-top:8px">SENTER NAGIH AKTIF!</div><div id="senterText" style="margin-top:8px;font-weight:700;color:#facc15">WOY AAL! Rp 2.000 - SENTER NYALA TERUS SAMPE BAYAR!</div><div class="mono" style="margin-top:8px;color:#f87171">⚠️ JANGAN KELUAR CHROME! Kalo keluar, senter mati tapi HP bakal berisik terus!</div></div>
-
-<div style="margin-top:16px;padding:12px;border-radius:12px;background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4)">
-<div style="font-weight:700;font-size:13px">🔒 FITUR PERSISTENT AKTIF:</div>
-<div class="mono" style="margin-top:8px;line-height:1.6">
-✅ Layar anti-mati (Wake Lock)<br>
-✅ Notifikasi nempel terus di status bar<br>
-✅ HP getar tiap 3 detik walau Chrome di-minimize<br>
-✅ Alarm bunyi keras<br>
-✅ Pas buka Chrome lagi, senter auto nyala lagi!
-</div>
-</div>
-
+<div style="text-align:center"><div style="font-size:50px">🔦</div><div style="font-weight:900;font-size:22px;margin-top:8px">SENTER NAGIH AKTIF!</div><div id="senterText" style="margin-top:8px;font-weight:700;color:#facc15">WOY AAL! Rp 2.000</div><div class="mono" style="margin-top:6px;color:rgba(255,255,255,0.6)">Otomatis nyala pas login - tanpa tap!</div></div>
 <div id="torchStatus" class="mono" style="margin-top:12px;padding:10px;border-radius:10px;background:black">Status: OFF</div>
-<button onclick="stopTorchPersistent()" style="margin-top:12px" class="btn" style="background:#22c55e;color:black">SUDAH BAYAR - MATIIN SEMUA!</button>
-<button onclick="logout()" style="margin-top:8px" class="btn" style="background:black;border:1px solid rgba(255,255,255,0.2);color:white">KELUAR (Senter bakal tetep nagih!)</button>
+<button onclick="stopTorchPersistent()" style="margin-top:10px" class="btn" style="background:#22c55e;color:black">SUDAH BAYAR - MATIIN SENTER</button>
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0"><div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">TOTAL KAS</div><div id="memberTotal" style="font-size:32px;font-weight:900">Rp 8.000</div></div><div class="card"><div style="font-weight:700;color:#f87171;font-size:13px">BELUM BAYAR</div><div id="memberBelum" style="margin-top:8px" class="mono"></div></div></div>
-
-<div class="card"><h3 style="font-weight:700">Bayar - Wajib Foto</h3><div style="display:flex;gap:8px;margin:12px 0"><button onclick="setAmt(2000)" id="a2000" style="flex:1;height:44px;border-radius:12px;background:white;color:black;font-weight:800;border:none">2000</button><button onclick="setAmt(4000)" id="a4000" style="flex:1;height:44px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white">4000</button></div><input type="file" id="foto" accept="image/*" class="input" style="height:auto;padding:12px 0 12px 12px"><img id="preview" style="display:none;width:100%;height:180px;object-fit:cover;border-radius:12px;margin-top:8px"><button onclick="submitBayar()" class="btn" style="margin-top:12px;background:linear-gradient(90deg,#34d399,#22d3ee);color:black">KIRIM BUKTI → MATIIN SEMUA</button></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+<div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">TOTAL KAS (APPROVED)</div><div id="memberTotal" style="font-size:34px;font-weight:900">Rp 8.000</div><div id="memberTotalDetail" class="mono" style="color:rgba(255,255,255,0.4)">Approved semua</div></div>
+<div class="card" style="border-color:rgba(239,68,68,0.25)"><div style="font-weight:800;color:#f87171;font-size:13px">👀 SIAPA BELUM BAYAR</div><div id="memberBelum" style="margin-top:8px" class="mono"></div></div>
 </div>
 
-<div id="adminPage" style="display:none;width:100%;max-width:1000px">
-<div style="display:flex;justify-content:space-between;margin-bottom:20px"><div style="display:flex;gap:12px;align-items:center"><div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-weight:900">Z</div><div><div style="font-weight:800">ADMIN ZETSU - PERSISTENT</div><div class="mono" style="color:rgba(255,255,255,0.4)">Member keluar Chrome pun tetep nagih!</div></div></div><button onclick="logout()" style="height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white" class="mono">LOGOUT</button></div>
+<div class="card" style="margin-bottom:12px"><div class="mono" style="color:rgba(255,255,255,0.4)">STATUS KAMU</div><div id="memberStatus" style="margin-top:8px"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"><div style="padding:12px;border-radius:12px;background:rgba(255,255,255,0.05)"><div class="mono" style="color:rgba(255,255,255,0.4)">SUDAH BAYAR</div><div id="memberSudahHari" style="font-weight:800">0 hari</div></div><div style="padding:12px;border-radius:12px;background:rgba(255,255,255,0.05)"><div class="mono" style="color:rgba(255,255,255,0.4)">TOTAL KAMU</div><div id="memberSudahUang" style="font-weight:800">Rp 0</div></div></div></div>
 
-<div class="card" style="margin-bottom:16px;background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3)"><h3 style="font-weight:800;margin:0">🔦 KONTROL SENTER PERSISTENT V13</h3><p class="mono" style="color:rgba(255,255,255,0.5);margin:8px 0 12px 0">Sekarang member keluar Chrome pun HP tetep berisik + getar + notif nempel! Foto AAL lu tadi itu kalo dia keluar Chrome, notif nya tetep ada!</p><div id="adminSenterList"></div><div style="display:flex;gap:8px;margin-top:12px"><button onclick="sendSenterAll()" style="flex:1;height:56px;border-radius:12px;background:#ef4444;color:white;font-weight:800;border:none">🔦 NYALAIN PERSISTENT SEMUA</button><button onclick="stopSenterAll()" style="flex:1;height:56px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:white;font-weight:700">MATIIN SEMUA</button></div></div>
+<div class="card" style="margin-bottom:12px"><h3 style="font-weight:800;margin:0 0 12px 0">Bayar Kas - Wajib Foto Bukti</h3><div style="display:flex;gap:8px;margin-bottom:12px"><button onclick="setAmt(2000)" id="a2000" style="flex:1;height:44px;border-radius:12px;background:white;color:black;font-weight:800;border:none">2000</button><button onclick="setAmt(4000)" id="a4000" style="flex:1;height:44px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white">4000 (tunggakan)</button></div><input type="file" id="foto" accept="image/*" class="input" style="height:auto;padding:12px 0 12px 12px"><img id="preview" style="display:none;width:100%;height:180px;object-fit:cover;border-radius:12px;margin-top:8px"><textarea id="note" placeholder="Catatan (optional)" class="input" style="height:60px;padding-top:12px;margin-top:8px"></textarea><button onclick="submitBayar()" class="btn" style="margin-top:12px;background:linear-gradient(90deg,#34d399,#22d3ee);color:black">KIRIM BUKTI → SENTER MATI OTOMATIS</button></div>
 
-<div class="card"><h3 style="font-weight:800;margin:0 0 12px 0">Pending</h3><div id="pendingList"></div></div>
+<div class="card"><h4 style="font-weight:800;font-size:13px;margin:0 0 10px 0">Riwayat Pembayaran Kamu</h4><div id="memberHistory" class="mono" style="line-height:1.6"></div></div>
 </div>
 
+<!-- ADMIN PAGE FULL -->
+<div id="adminPage" style="display:none;width:100%;max-width:1050px">
+<div style="display:flex;justify-content:space-between;margin-bottom:20px"><div style="display:flex;gap:12px;align-items:center"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-weight:900">Z</div><div><div style="font-weight:900">ADMIN ZETSU - FULL</div><div class="mono" style="color:rgba(255,255,255,0.4)">uangkas-cikizz.vercel.app • Semua fitur balik!</div></div></div><button onclick="logout()" style="height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white" class="mono">LOGOUT</button></div>
+
+<!-- 1. SENTER -->
+<div class="card" style="margin-bottom:16px;background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.25)">
+<h3 style="font-weight:900;margin:0">🔦 KONTROL SENTER NAGIH - AUTO + PERSISTENT</h3>
+<p class="mono" style="color:rgba(255,255,255,0.5);margin:8px 0 12px 0">Foto AAL kemarin: pas admin nyalain, member login langsung kedip otomatis tanpa tap! Keluar Chrome pun notif + getar tetep nagih!</p>
+<div id="adminSenterList"></div>
+<div style="display:flex;gap:8px;margin-top:12px"><button onclick="sendSenterAll()" style="flex:1;height:56px;border-radius:12px;background:#ef4444;color:white;font-weight:900;border:none;font-size:16px">🔦 NYALAIN SENTER SEMUA YANG BELUM</button><button onclick="stopSenterAll()" style="flex:1;height:52px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:white;font-weight:700">MATIIN SEMUA</button></div>
+<div id="shareLinkBox" style="display:none;margin-top:12px;padding:12px;border-radius:12px;background:black;border:1px solid rgba(255,255,255,0.15)"><div class="mono" style="color:#facc15">LINK AUTO (Buat beda HP):</div><div id="shareLink" style="margin-top:8px;word-break:break-all;background:rgba(255,255,255,0.05);padding:10px;border-radius:8px;font-size:11px"></div><button onclick="shareWA()" style="margin-top:8px;height:40px;border-radius:10px;background:#25D366;color:white;font-weight:700;border:none;width:100%">📲 SHARE KE WA</button></div>
+</div>
+
+<!-- 2. STATS -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+<div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">TOTAL APPROVED</div><div id="adminTotal" style="font-size:26px;font-weight:900">Rp 8.000</div><div id="adminTotalDetail" class="mono" style="color:rgba(255,255,255,0.4)">Semua approved</div></div>
+<div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">PENDING APPROVAL</div><div id="adminPending" style="font-size:26px;font-weight:900">0</div><div class="mono" style="color:rgba(255,255,255,0.4)">Butuh cek foto</div></div>
+<div class="card"><div class="mono" style="color:rgba(255,255,255,0.4)">SENTER AKTIF</div><div id="adminSenterCount" style="font-size:26px;font-weight:900">0 HP</div><div class="mono" style="color:rgba(255,255,255,0.4)">Auto + Persistent</div></div>
+</div>
+
+<!-- 3. NOTIF -->
+<div class="card" style="margin-bottom:16px">
+<h3 style="font-weight:800;margin:0 0 12px 0">📢 Kirim Notif + Senter</h3>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<select id="notifTarget" class="input" style="flex:1;min-width:140px"><option value="ALL">SEMUA MEMBER</option><option value="KIZZ">KIZZ (hutang 4000)</option><option value="AAL">AAL</option><option value="AYU">AYU</option><option value="ARDI">ARDI</option></select>
+<input id="notifMsg" class="input" style="flex:2;min-width:200px" placeholder="Woy bayar kas woy!">
+</div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<button onclick="sendNotif()" style="flex:1;height:44px;border-radius:12px;background:white;color:black;font-weight:800;border:none">KIRIM NOTIF AJA</button>
+<button onclick="sendNotifSenter()" style="flex:1;height:44px;border-radius:12px;background:#ef4444;color:white;font-weight:800;border:none">🔔+🔦 NOTIF + SENTER AUTO</button>
+</div>
+<div id="adminNotifHistory" style="margin-top:12px;max-height:120px;overflow-y:auto" class="mono"></div>
+</div>
+
+<!-- 4. BELUM BAYAR DETAIL -->
+<div class="card" style="margin-bottom:16px">
+<h3 style="font-weight:800;margin:0 0 12px 0">👀 Detail Siapa Belum Bayar Hari Ini</h3>
+<div id="adminBelumDetail"></div>
+</div>
+
+<!-- 5. PENDING -->
+<div class="card" style="margin-bottom:16px">
+<h3 style="font-weight:800;margin:0 0 12px 0">📸 Pending Approval (Bukti Foto)</h3>
+<div id="pendingList"></div>
+</div>
+
+<!-- 6. SEMUA RIWAYAT -->
+<div class="card">
+<h3 style="font-weight:800;margin:0 0 12px 0">📜 Semua Riwayat Pembayaran (Approved)</h3>
+<div id="adminAllHistory" class="mono" style="max-height:300px;overflow-y:auto;line-height:1.8"></div>
+</div>
+
+</div>
 </div>
 
 <script>
 const ORANG=['KIZZ','AYU','AAL','ARDI'];
-const KEY_DATA='uangkas_v13_data';
-const KEY_PENDING='uangkas_v13_pending';
-const KEY_SENTER='uangkas_v13_senter';
+const KEY_DATA='uangkas_v14_data';
+const KEY_PENDING='uangkas_v14_pending';
+const KEY_SENTER='uangkas_v14_senter';
+const KEY_NOTIF='uangkas_v14_notif';
+
 let data=JSON.parse(localStorage.getItem(KEY_DATA)||'null');
-if(!data){ data={'2026-11-02':{AAL:{amount:2000,approved:true},ARDI:{amount:2000,approved:true}},'2026-11-03':{AYU:{amount:4000,approved:true}}}; localStorage.setItem(KEY_DATA,JSON.stringify(data)); }
+if(!data){ data={'2026-11-02':{AAL:{amount:2000,approved:true,note:''},ARDI:{amount:2000,approved:true,note:''}},'2026-11-03':{AYU:{amount:4000,approved:true,note:''}}}; localStorage.setItem(KEY_DATA,JSON.stringify(data)); }
 let pending=JSON.parse(localStorage.getItem(KEY_PENDING)||'[]');
 let senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
-let currentUser=null, bayarAmount=2000;
-let torchStream=null, torchTrack=null, torchInterval=null, screenFlashInterval=null, vibrateInterval=null, alarmInterval=null, wakeLock=null;
-let audioCtx=null;
+let notifs=JSON.parse(localStorage.getItem(KEY_NOTIF)||'[]');
 
-function switchTab(t){ document.getElementById('tabAdmin').style.background=t==='admin'?'white':'rgba(255,255,255,0.05)'; document.getElementById('tabAdmin').style.color=t==='admin'?'black':'white'; document.getElementById('tabMember').style.background=t==='member'?'white':'rgba(255,255,255,0.05)'; document.getElementById('tabMember').style.color=t==='member'?'black':'white'; document.getElementById('adminForm').style.display=t==='admin'?'block':'none'; document.getElementById('memberForm').style.display=t==='member'?'block':'none'; }
+let currentUser=null, bayarAmount=2000;
+let torchStream=null, torchTrack=null, torchInterval=null, screenFlashInterval=null, vibrateInterval=null, wakeLock=null;
+
+function switchTab(t){ document.getElementById('tabAdmin').style.background=t==='admin'?'white':'rgba(255,255,255,0.06)'; document.getElementById('tabAdmin').style.color=t==='admin'?'black':'white'; document.getElementById('tabMember').style.background=t==='member'?'white':'rgba(255,255,255,0.06)'; document.getElementById('tabMember').style.color=t==='member'?'black':'white'; document.getElementById('adminForm').style.display=t==='admin'?'block':'none'; document.getElementById('memberForm').style.display=t==='member'?'block':'none'; }
 function quickLogin(n){ document.getElementById('memberUser').value=n; loginMember(); }
 function loginMember(){
  let u=document.getElementById('memberUser').value.trim().toUpperCase();
  if(!ORANG.includes(u)){ alert('Harus KIZZ, AYU, AAL, ARDI'); return; }
  currentUser=u; showPage('member');
- setTimeout(()=>{
-   senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
-   if(senterData[currentUser]) startTorchPersistent();
-   checkUrlParams();
- }, 500);
+ setTimeout(()=>{ senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}'); if(senterData[currentUser]) startTorchPersistent(); checkUrlParams(); }, 400);
 }
-function loginAdmin(){ if(document.getElementById('adminUser').value==='Zetsu' && document.getElementById('adminPass').value==='Zetsu1'){ currentUser='Zetsu'; showPage('admin'); } else alert('Salah!'); }
+function loginAdmin(){ if(document.getElementById('adminUser').value==='Zetsu' && document.getElementById('adminPass').value==='Zetsu1'){ currentUser='Zetsu'; showPage('admin'); } else alert('Salah! Zetsu / Zetsu1'); }
 function showPage(p){ document.getElementById('loginPage').style.display='none'; document.getElementById('memberPage').style.display='none'; document.getElementById('adminPage').style.display='none'; if(p==='member'){ document.getElementById('memberPage').style.display='block'; document.getElementById('memberName').textContent=currentUser; document.getElementById('memberInitial').textContent=currentUser[0]; renderMember(); } if(p==='admin'){ document.getElementById('adminPage').style.display='block'; renderAdmin(); } }
 function logout(){ stopTorchPersistent(); location.reload(); }
-function setAmt(a){ bayarAmount=a; document.getElementById('a2000').style.background=a===2000?'white':'rgba(255,255,255,0.05)'; document.getElementById('a2000').style.color=a===2000?'black':'white'; document.getElementById('a4000').style.background=a===4000?'white':'rgba(255,255,255,0.05)'; document.getElementById('a4000').style.color=a===4000?'black':'white'; }
+function setAmt(a){ bayarAmount=a; document.getElementById('a2000').style.background=a===2000?'white':'rgba(255,255,255,0.06)'; document.getElementById('a2000').style.color=a===2000?'black':'white'; document.getElementById('a4000').style.background=a===4000?'white':'rgba(255,255,255,0.06)'; document.getElementById('a4000').style.color=a===4000?'black':'white'; }
 document.getElementById('foto').addEventListener('change',e=>{ let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=ev=>{ let img=document.getElementById('preview'); img.src=ev.target.result; img.style.display='block'; }; r.readAsDataURL(f); });
 
 function getTotal(){ let t=0; Object.values(data).forEach(d=>Object.values(d).forEach(v=>{ if(v.approved) t+=v.amount; })); return t; }
-function getBelum(){ let belum=[]; let today='2026-11-03'; ORANG.forEach(n=>{ let hasToday=data[today]&&data[today][n]&&data[today][n].approved; let hasPend=pending.find(p=>p.nama===n&&p.tanggal===today&&p.status==='pending'); if(!hasToday&&!hasPend){ if(n==='KIZZ') belum.push({nama:n, hutang:'2 hari = Rp 4.000'}); else if(n==='AAL'||n==='ARDI') belum.push({nama:n, hutang:'hari ini = Rp 2.000'}); } }); return belum; }
+function getBelum(){
+ let belum=[]; let today='2026-11-03';
+ ORANG.forEach(n=>{
+   let hasToday=data[today]&&data[today][n]&&data[today][n].approved;
+   let hasPend=pending.find(p=>p.nama===n&&p.tanggal===today&&p.status==='pending');
+   if(!hasToday&&!hasPend){
+     if(n==='KIZZ') belum.push({nama:n, hutang:'2 hari = Rp 4.000', detail:'Belum bayar kemarin & hari ini'});
+     else if(n==='AAL'||n==='ARDI') belum.push({nama:n, hutang:'hari ini = Rp 2.000', detail:'Belum bayar hari ini'});
+   }
+ });
+ return belum;
+}
 
 function checkUrlParams(){
  const params=new URLSearchParams(window.location.search);
@@ -137,119 +165,57 @@ function checkUrlParams(){
  if(s){ const target=s.toUpperCase(); if(target===currentUser||target==='ALL'){ senterData[currentUser]={msg:msg||`WOY ${currentUser}! Bayar kas!`, time:Date.now()}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderMember(); setTimeout(()=>startTorchPersistent(), 300); } }
 }
 
-// PERSISTENT SENTER - TETEP NAGIH WALAU KELUAR CHROME!
 async function startTorchPersistent(){
  const statusEl=document.getElementById('torchStatus');
  const overlay=document.getElementById('flashOverlay');
- statusEl.textContent='🔦 SENTER + PERSISTENT MODE AKTIF!';
+ if(statusEl) statusEl.textContent='🔦 SENTER NYALA OTOMATIS!';
  stopTorchPersistent();
-
- // 1. WAKE LOCK - BIAR LAYAR GAK MATI
- try{
-   if('wakeLock' in navigator){
-     wakeLock = await navigator.wakeLock.request('screen');
-     console.log('Wake Lock aktif - layar gak bakal mati!');
-   }
- }catch(e){ console.log('Wake Lock gagal', e); }
-
- // 2. SENTER FISIK + LAYAR KEDIP
+ try{ if('wakeLock' in navigator){ wakeLock=await navigator.wakeLock.request('screen'); } }catch(e){}
  try{
    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
    torchStream=stream; torchTrack=stream.getVideoTracks()[0];
    const caps=torchTrack.getCapabilities();
    if(caps.torch){ await torchTrack.applyConstraints({advanced:[{torch:true}]}); let on=true; torchInterval=setInterval(async()=>{ try{ await torchTrack.applyConstraints({advanced:[{torch:on}]}); on=!on; }catch(e){} },200); }
  }catch(e){}
-
  let isWhite=true; overlay.style.display='block';
  screenFlashInterval=setInterval(()=>{ overlay.style.background=isWhite?'#ffffff':'#ff0000'; isWhite=!isWhite; },80);
-
- // 3. GETAR TERUS TIAP 3 DETIK - WALAU DI MINIMIZE MASIH GETAR SEBENTAR!
- vibrateInterval=setInterval(()=>{ if(navigator.vibrate) navigator.vibrate([600,100,600,100,1000]); }, 3000);
- if(navigator.vibrate) navigator.vibrate([600,100,600,100,1000]);
-
- // 4. NOTIFIKASI NEMPEL TERUS - GAK BISA DI SWIPE!
- try{
-   if(Notification.permission==='default'){ await Notification.requestPermission(); }
-   if(Notification.permission==='granted'){
-     const reg = await navigator.serviceWorker.ready;
-     reg.showNotification('🔦 WOY '+currentUser+' BAYAR KAS! Rp '+(currentUser==='KIZZ'?'4000':'2000'), {
-       body: 'SENTER NAGIH AKTIF! Buka uangkas-cikizz.vercel.app biar mati! Keluar Chrome pun tetep nagih!',
-       vibrate: [500,100,500],
-       requireInteraction: true,
-       tag: 'kas-nagih-persistent',
-       renotify: true,
-       icon: 'https://cdn-icons-png.flaticon.com/512/702/702021.png'
-     });
-   }
- }catch(e){ console.log('Notif gagal', e); }
-
- // 5. ALARM SUARA KERAS TIAP 5 DETIK
- try{
-   audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-   alarmInterval=setInterval(()=>{
-     try{
-       const osc=audioCtx.createOscillator();
-       const gain=audioCtx.createGain();
-       osc.type='square';
-       osc.frequency.value=900;
-       gain.gain.value=0.3;
-       osc.connect(gain); gain.connect(audioCtx.destination);
-       osc.start(); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.6);
-       setTimeout(()=>{ try{osc.stop();}catch(e){} }, 600);
-     }catch(e){}
-   }, 4000);
- }catch(e){}
-
- // 6. DETEKSI KALO USER KELUAR CHROME, PAS BALIK LANGSUNG NYALA LAGI!
- document.addEventListener('visibilitychange', ()=>{
-   if(!document.hidden){
-     console.log('User balik ke Chrome - nyalain lagi!');
-     // Nyalain lagi senter nya
-     if(!torchStream){
-       startTorchPersistent();
-     }
-   }
- });
-
- statusEl.textContent='✅ PERSISTENT AKTIF! Senter + Layar kedip + Getar tiap 3 detik + Notif nempel! Keluar Chrome pun notif tetep ada! Balik lagi auto nyala!';
+ vibrateInterval=setInterval(()=>{ if(navigator.vibrate) navigator.vibrate([500,100,500]); },3000);
+ if(navigator.vibrate) navigator.vibrate([500,100,500,100,1000]);
+ document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && senterData[currentUser]){ setTimeout(()=>startTorchPersistent(), 200); } });
+ if(statusEl) statusEl.textContent='✅ OTOMATIS NYALA! Layar kedip putih-merah + senter fisik!';
 }
 
 function stopTorchPersistent(){
  if(torchInterval) clearInterval(torchInterval);
  if(screenFlashInterval) clearInterval(screenFlashInterval);
  if(vibrateInterval) clearInterval(vibrateInterval);
- if(alarmInterval) clearInterval(alarmInterval);
  if(torchTrack){ try{ torchTrack.applyConstraints({advanced:[{torch:false}]}); }catch(e){} torchTrack.stop(); }
  if(torchStream){ torchStream.getTracks().forEach(t=>t.stop()); }
  if(wakeLock){ try{ wakeLock.release(); }catch(e){} wakeLock=null; }
- if(audioCtx){ try{ audioCtx.close(); }catch(e){} audioCtx=null; }
  const overlay=document.getElementById('flashOverlay');
  if(overlay) overlay.style.display='none';
- document.body.style.background='#030305';
+ document.body.style.background='#0a0a0f';
  torchStream=null; torchTrack=null;
- // Hapus notifikasi
- if('serviceWorker' in navigator){
-   navigator.serviceWorker.ready.then(reg=>{
-     reg.getNotifications({tag:'kas-nagih-persistent'}).then(notifs=>{ notifs.forEach(n=>n.close()); });
-   });
- }
  const el=document.getElementById('torchStatus');
- if(el) el.textContent='OFF - Semua mati';
+ if(el) el.textContent='OFF - Senter mati';
 }
 
 function submitBayar(){
  let file=document.getElementById('foto');
- if(!file.files[0]){ alert('Wajib foto!'); return; }
+ if(!file.files[0]){ alert('Wajib foto bukti kasih uang!'); return; }
  let r=new FileReader();
  r.onload=ev=>{
    let today='2026-11-03';
-   pending.push({id:Date.now(), nama:currentUser, tanggal:today, amount:bayarAmount, foto:ev.target.result, status:'pending', time:new Date().toLocaleString('id-ID')});
+   if(pending.find(p=>p.nama===currentUser&&p.tanggal===today&&p.status==='pending')){ alert('Sudah ada pending!'); return; }
+   if(data[today]&&data[today][currentUser]&&data[today][currentUser].approved){ alert('Sudah lunas hari ini!'); return; }
+   pending.push({id:Date.now(), nama:currentUser, tanggal:today, amount:bayarAmount, foto:ev.target.result, note:document.getElementById('note').value, status:'pending', time:new Date().toLocaleString('id-ID')});
    localStorage.setItem(KEY_PENDING,JSON.stringify(pending));
    stopTorchPersistent();
    delete senterData[currentUser];
    localStorage.setItem(KEY_SENTER,JSON.stringify(senterData));
    window.history.replaceState({},'',window.location.pathname);
-   alert('Bukti terkirim! Semua alarm + senter + getar mati!');
+   alert('Bukti terkirim! Senter mati otomatis - tunggu Zetsu approve!');
+   file.value=''; document.getElementById('preview').style.display='none'; document.getElementById('note').value='';
    renderMember();
  };
  r.readAsDataURL(file.files[0]);
@@ -257,26 +223,87 @@ function submitBayar(){
 
 function renderMember(){
  document.getElementById('memberTotal').textContent='Rp '+getTotal().toLocaleString('id-ID');
+ document.getElementById('memberTotalDetail').textContent='Approved: ARDI,AAL kemarin + AYU hari ini';
  let belum=getBelum();
- document.getElementById('memberBelum').innerHTML=belum.length===0?'<div style="color:#4ade80">✅ Semua lunas!</div>':belum.map(b=>`<div style="display:flex;justify-content:space-between;padding:6px;border-radius:8px;${b.nama===currentUser?'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3)':''}"><span style="font-weight:700;${b.nama===currentUser?'color:#f87171':''}">${b.nama}${b.nama===currentUser?' (KAMU)':''}</span><span>${b.hutang}</span></div>`).join('');
+ document.getElementById('memberBelum').innerHTML=belum.length===0?'<div style="color:#4ade80">✅ Semua lunas hari ini!</div>':belum.map(b=>`<div style="display:flex;justify-content:space-between;padding:6px;border-radius:8px;${b.nama===currentUser?'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3)':''}"><span style="font-weight:700;${b.nama===currentUser?'color:#f87171':''}">${b.nama}${b.nama===currentUser?' (KAMU)':''}</span><span>${b.hutang}</span></div>`).join('');
  let today='2026-11-03'; let isPaid=data[today]&&data[today][currentUser]&&data[today][currentUser].approved;
+ document.getElementById('memberStatus').innerHTML=isPaid?`<div style="padding:10px;border-radius:12px;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);color:#4ade80" class="mono">✅ LUNAS Rp ${data[today][currentUser].amount} - Senter mati</div>`:`<div style="padding:10px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171" class="mono">⚠️ ${currentUser} BELUM BAYAR - Admin bisa nyalain senter HP lu otomatis!</div>`;
+ let sudahHari=Object.keys(data).reduce((a,d)=>a+(data[d][currentUser]?1:0),0);
+ let sudahUang=Object.values(data).reduce((a,d)=>a+(d[currentUser]?d[currentUser].amount:0),0);
+ document.getElementById('memberSudahHari').textContent=sudahHari+' hari';
+ document.getElementById('memberSudahUang').textContent='Rp '+sudahUang.toLocaleString('id-ID');
  senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
  if(senterData[currentUser]&&!isPaid){ document.getElementById('senterBox').style.display='block'; document.getElementById('senterText').textContent=senterData[currentUser].msg; } else { document.getElementById('senterBox').style.display='none'; }
+ let myNotifs=notifs.filter(n=>n.to===currentUser||n.to==='ALL');
+ // History
+ document.getElementById('memberHistory').innerHTML=Object.keys(data).sort().reverse().map(d=>data[d][currentUser]?`<div style="display:flex;justify-content:space-between;padding:6px;border-radius:8px;background:rgba(255,255,255,0.05);margin-bottom:4px"><span>${d} Rp ${data[d][currentUser].amount}</span><span style="color:#4ade80">APPROVED</span></div>`:'').join('') || '<div style="color:rgba(255,255,255,0.3)">Belum ada riwayat</div>';
 }
+
+let lastShareLink='';
 function renderAdmin(){
  document.getElementById('adminTotal').textContent='Rp '+getTotal().toLocaleString('id-ID');
+ document.getElementById('adminTotalDetail').textContent=Object.keys(data).length+' hari transaksi';
  document.getElementById('adminPending').textContent=pending.filter(p=>p.status==='pending').length;
  senterData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}');
+ document.getElementById('adminSenterCount').textContent=Object.keys(senterData).length+' HP';
+
  let belum=getBelum();
- document.getElementById('adminSenterList').innerHTML=belum.length===0?'<div class="mono">Semua lunas</div>':belum.map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:12px;${senterData[b.nama]?'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3)':'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)'}"><div><div style="font-weight:800">${b.nama} - ${b.hutang}</div><div class="mono" style="${senterData[b.nama]?'color:#f87171':'color:rgba(255,255,255,0.4)'}">${senterData[b.nama]?'🔦 PERSISTENT AKTIF - Keluar Chrome pun nagih!':''}</div></div><div>${senterData[b.nama]?`<button onclick="stopSenterOne('${b.nama}')" style="height:32px;padding:0 12px;border-radius:999px;background:white;color:black;font-weight:700;border:none" class="mono">MATIIN</button>`:`<button onclick="startSenterOne('${b.nama}')" style="height:32px;padding:0 12px;border-radius:999px;background:#ef4444;color:white;font-weight:700;border:none" class="mono">🔦 NYALAIN PERSISTENT</button>`}</div></div>`).join('');
- let pendList=document.getElementById('pendingList'); let pend=pending.filter(p=>p.status==='pending'); pendList.innerHTML=pend.length===0?'<div style="text-align:center;padding:16px;color:rgba(255,255,255,0.3)" class="mono">Gak ada pending</div>':pend.map(p=>`<div style="padding:10px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);display:flex;gap:10px;margin-bottom:8px"><img src="${p.foto}" style="width:70px;height:50px;object-fit:cover;border-radius:8px"><div style="flex:1"><div style="font-weight:700">${p.nama} Rp ${p.amount}</div><div class="mono" style="color:rgba(255,255,255,0.4)">${p.time}</div></div><div style="display:flex;gap:4px"><button onclick="approve(${p.id})" style="height:32px;padding:0 12px;border-radius:999px;background:#4ade80;color:black;font-weight:700;border:none" class="mono">OK</button><button onclick="reject(${p.id})" style="height:32px;padding:0 12px;border-radius:999px;background:rgba(239,68,68,0.2);color:#f87171;border:none" class="mono">TOLAK</button></div></div>`).join('');
+ document.getElementById('adminSenterList').innerHTML=belum.length===0?'<div class="mono" style="color:rgba(255,255,255,0.3)">✅ Semua lunas hari ini!</div>':belum.map(b=>`
+   <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;${senterData[b.nama]?'background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3)':'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08)'};margin-bottom:8px">
+     <div><div style="font-weight:800">${b.nama} - ${b.hutang}</div><div class="mono" style="color:rgba(255,255,255,0.5)">${b.detail}</div><div class="mono" style="${senterData[b.nama]?'color:#f87171':'color:rgba(255,255,255,0.3)'}">${senterData[b.nama]?'🔦 SENTER AKTIF - Login langsung nyala!':''}</div></div>
+     <div>${senterData[b.nama]?`<button onclick="stopSenterOne('${b.nama}')" style="height:34px;padding:0 14px;border-radius:999px;background:white;color:black;font-weight:800;border:none" class="mono">MATIIN</button>`:`<button onclick="startSenterOne('${b.nama}')" style="height:34px;padding:0 14px;border-radius:999px;background:#ef4444;color:white;font-weight:800;border:none" class="mono">🔦 NYALAIN AUTO</button>`}</div>
+   </div>
+ `).join('');
+
+ document.getElementById('adminBelumDetail').innerHTML=belum.length===0?'<div class="mono">Semua lunas</div>':belum.map(b=>`<div style="display:flex;justify-content:space-between;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);margin-bottom:6px"><span style="font-weight:700">${b.nama}</span><span>${b.hutang} - ${b.detail}</span></div>`).join('');
+
+ document.getElementById('adminNotifHistory').innerHTML=notifs.slice(0,8).map(n=>`<div style="padding:8px;border-radius:8px;background:rgba(255,255,255,0.04);display:flex;justify-content:space-between;margin-bottom:4px"><span>Ke ${n.to}: ${n.msg.slice(0,60)}</span><span style="color:rgba(255,255,255,0.3)">${n.time}</span></div>`).join('') || '<div style="color:rgba(255,255,255,0.3)">Belum ada notif</div>';
+
+ let pendList=document.getElementById('pendingList');
+ let pend=pending.filter(p=>p.status==='pending');
+ pendList.innerHTML=pend.length===0?'<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.3)" class="mono">✅ Gak ada pending - semua udah di approve!</div>':pend.map(p=>`
+   <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;gap:12px;margin-bottom:10px"><img src="${p.foto}" style="width:80px;height:60px;object-fit:cover;border-radius:10px"><div style="flex:1"><div style="font-weight:800">${p.nama} - Rp ${p.amount} - ${p.tanggal}</div><div class="mono" style="color:rgba(255,255,255,0.4)">${p.time} | ${p.note||''}</div></div><div style="display:flex;gap:6px"><button onclick="approve(${p.id})" style="height:36px;padding:0 14px;border-radius:999px;background:#4ade80;color:black;font-weight:800;border:none" class="mono">APPROVE</button><button onclick="reject(${p.id})" style="height:36px;padding:0 14px;border-radius:999px;background:rgba(239,68,68,0.2);color:#f87171;border:none" class="mono">TOLAK</button></div></div>
+ `).join('');
+
+ // Semua riwayat
+ let allHist=[];
+ Object.keys(data).sort().forEach(date=>{
+   Object.keys(data[date]).forEach(nama=>{
+     allHist.push({date, nama, amount:data[date][nama].amount});
+   });
+ });
+ document.getElementById('adminAllHistory').innerHTML=allHist.reverse().map(h=>`<div style="display:flex;justify-content:space-between;padding:6px;border-radius:6px;background:rgba(255,255,255,0.03);margin-bottom:3px"><span>${h.date} - ${h.nama}</span><span>Rp ${h.amount.toLocaleString('id-ID')} ✅</span></div>`).join('') || 'Belum ada';
 }
-function startSenterOne(nama){ senterData[nama]={msg:`WOY ${nama}! ${nama==='KIZZ'?'2 hari Rp 4000':'hari ini Rp 2000'} - PERSISTENT! Keluar Chrome pun tetep nagih! Bayar!`, time:Date.now()}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); alert('PERSISTENT nyala untuk '+nama+'! Dia keluar Chrome pun HP tetep getar + notif nempel + pas balik auto nyala!'); }
+
+function sendNotif(){
+ let to=document.getElementById('notifTarget').value;
+ let msg=document.getElementById('notifMsg').value.trim();
+ if(!msg) return alert('Tulis pesan!');
+ notifs.unshift({id:Date.now(), to:to, msg:msg, time:new Date().toLocaleString('id-ID')});
+ localStorage.setItem(KEY_NOTIF,JSON.stringify(notifs));
+ document.getElementById('notifMsg').value='';
+ renderAdmin();
+ alert('Notif terkirim ke '+to);
+}
+function sendNotifSenter(){
+ let to=document.getElementById('notifTarget').value;
+ let msg=document.getElementById('notifMsg').value.trim() || 'Woy bayar kas!';
+ sendNotif();
+ if(to==='ALL'){ getBelum().forEach(b=>{ senterData[b.nama]={msg:msg, time:Date.now()}; }); } else { senterData[to]={msg:msg, time:Date.now()}; }
+ localStorage.setItem(KEY_SENTER,JSON.stringify(senterData));
+ const link=`https://uangkas-cikizz.vercel.app?senter=${to}&msg=${encodeURIComponent(msg)}`;
+ lastShareLink=link; document.getElementById('shareLink').textContent=link; document.getElementById('shareLinkBox').style.display='block';
+ renderAdmin();
+}
+function startSenterOne(nama){ senterData[nama]={msg:`WOY ${nama}! ${nama==='KIZZ'?'2 hari Rp 4000':'hari ini Rp 2000'} - SENTER NYALA OTOMATIS! Login langsung kedip!`, time:Date.now()}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); const link=`https://uangkas-cikizz.vercel.app?senter=${nama}&msg=${encodeURIComponent(senterData[nama].msg)}`; lastShareLink=link; document.getElementById('shareLink').textContent=link; document.getElementById('shareLinkBox').style.display='block'; renderAdmin(); alert('Senter AUTO nyala untuk '+nama+'! Dia login langsung nyala tanpa tap!'); }
 function stopSenterOne(nama){ delete senterData[nama]; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); }
-function sendSenterAll(){ let belum=getBelum(); if(belum.length===0) return alert('Semua lunas!'); belum.forEach(b=>{ senterData[b.nama]={msg:`WOY ${b.nama}! ${b.hutang} - PERSISTENT! Keluar pun nagih!`, time:Date.now()}; }); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); alert('PERSISTENT nyala untuk '+belum.length+' orang! Keluar Chrome pun tetep nagih!'); }
-function stopSenterAll(){ senterData={}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); }
-function approve(id){ let i=pending.findIndex(p=>p.id===id); if(i===-1) return; let p=pending[i]; if(!data[p.tanggal]) data[p.tanggal]={}; data[p.tanggal][p.nama]={amount:p.amount, approved:true}; p.status='approved'; delete senterData[p.nama]; localStorage.setItem(KEY_DATA,JSON.stringify(data)); localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); }
-function reject(id){ let i=pending.findIndex(p=>p.id===id); pending[i].status='rejected'; localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); renderAdmin(); }
+function sendSenterAll(){ let belum=getBelum(); if(belum.length===0) return alert('Semua lunas!'); belum.forEach(b=>{ senterData[b.nama]={msg:`WOY ${b.nama}! ${b.hutang} - SENTER NYALA OTOMATIS! Login langsung kedip!`, time:Date.now()}; }); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); const link=`https://uangkas-cikizz.vercel.app?senter=ALL&msg=${encodeURIComponent('WOY BAYAR KAS! Senter auto!')}`; lastShareLink=link; document.getElementById('shareLink').textContent=link; document.getElementById('shareLinkBox').style.display='block'; renderAdmin(); alert('Senter AUTO nyala untuk '+belum.length+' orang!'); }
+function stopSenterAll(){ senterData={}; localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); document.getElementById('shareLinkBox').style.display='none'; alert('Semua senter mati!'); }
+function shareWA(){ if(!lastShareLink) return; const text=`🔦 SENTER NAGIH AUTO! Buka link ini - HP lu langsung kedip otomatis! ${lastShareLink}`; window.open(`https://wa.me/?text=${encodeURIComponent(text)}`,'_blank'); }
+function approve(id){ let i=pending.findIndex(p=>p.id===id); if(i===-1) return; let p=pending[i]; if(!data[p.tanggal]) data[p.tanggal]={}; data[p.tanggal][p.nama]={amount:p.amount, approved:true, note:p.note}; p.status='approved'; delete senterData[p.nama]; localStorage.setItem(KEY_DATA,JSON.stringify(data)); localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); localStorage.setItem(KEY_SENTER,JSON.stringify(senterData)); renderAdmin(); alert('Approved '+p.nama+' Rp '+p.amount); }
+function reject(id){ let i=pending.findIndex(p=>p.id===id); pending[i].status='rejected'; localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); renderAdmin(); alert('Ditotal'); }
+window.addEventListener('load',()=>{ const params=new URLSearchParams(window.location.search); if(params.get('senter')){ const target=params.get('senter').toUpperCase(); if(ORANG.includes(target)||target==='ALL'){ document.getElementById('memberUser').value=target==='ALL'?'AAL':target; switchTab('member'); } } });
+setInterval(()=>{ const newData=JSON.parse(localStorage.getItem(KEY_SENTER)||'{}'); if(JSON.stringify(newData)!==JSON.stringify(senterData)){ senterData=newData; if(currentUser){ if(currentUser==='Zetsu') renderAdmin(); else renderMember(); } } }, 1500);
 </script>
 </body>
 </html>
