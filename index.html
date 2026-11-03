@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kas Login System - CiKiZz Shop</title>
+<title>Kas Harian - CiKiZz Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
@@ -12,77 +12,84 @@
 body{background:#030305;color:#fff}
 .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);border-radius:20px}
 .input{width:100%;height:48px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;outline:none}
-.input:focus{border-color:#00f0ff}
-.btn{height:48px;border-radius:12px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:.2s;cursor:pointer}
-.btn:active{transform:scale(0.98)}
+.btn{height:48px;border-radius:12px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer}
 </style>
 </head>
 <body>
-<div id="app" class="min-h-screen flex items-center justify-center p-6">
+<div id="app" class="min-h-screen flex items-center justify-center p-4">
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN -->
 <div id="loginPage" class="w-full max-w-[420px]">
-<div class="text-center mb-8">
+<div class="text-center mb-6">
 <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center font-bold text-black text-[22px]">K</div>
-<h1 class="mt-4 font-[800] text-[28px]">KAS LOGIN</h1>
-<p class="mono text-[11px] text-white/30 mt-1">ADMIN: Zetsu / Zetsu1 • MEMBER: username aja</p>
+<h1 class="mt-4 font-[800] text-[26px]">KAS LOGIN</h1>
+<p class="mono text-[11px] text-white/30">Admin Pass and User • Member username aja</p>
 </div>
-
-<div class="card p-7">
-<div class="flex gap-2 mb-6">
+<div class="card p-6">
+<div class="flex gap-2 mb-5">
 <button id="tabAdmin" onclick="switchTab('admin')" class="flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]">ADMIN</button>
-<button id="tabMember" onclick="switchTab('member')" class="flex-1 h-10 rounded-full bg-white/5 border border-white/10 text-[13px]">MEMBER</button>
+<button id="tabMember" onclick="switchTab('member')" class="flex-1 h-10 rounded-full bg-white/5 border text-[13px]">MEMBER</button>
 </div>
-
 <div id="adminForm">
-<input id="adminUser" class="input mb-3" placeholder="Username admin (Zetsu)">
-<input id="adminPass" type="password" class="input mb-4" placeholder="Password (Zetsu1)">
+<input id="adminUser" class="input mb-3" placeholder="Zetsu">
+<input id="adminPass" type="password" class="input mb-3" placeholder="Zetsu1">
 <button onclick="loginAdmin()" class="btn w-full bg-white text-black">LOGIN ADMIN</button>
 </div>
-
 <div id="memberForm" class="hidden">
-<div class="grid grid-cols-2 gap-2 mb-4">
-<button onclick="quickLogin('KIZZ')" class="h-12 rounded-xl bg-white/5 border border-white/10 font-bold">KIZZ</button>
-<button onclick="quickLogin('AYU')" class="h-12 rounded-xl bg-white/5 border border-white/10 font-bold">AYU</button>
-<button onclick="quickLogin('AAL')" class="h-12 rounded-xl bg-white/5 border border-white/10 font-bold">AAL</button>
-<button onclick="quickLogin('ARDI')" class="h-12 rounded-xl bg-white/5 border border-white/10 font-bold">ARDI</button>
+<div class="grid grid-cols-4 gap-2 mb-3">
+<button onclick="quickLogin('KIZZ')" class="h-11 rounded-xl bg-white/5 border font-bold">KIZZ</button>
+<button onclick="quickLogin('AYU')" class="h-11 rounded-xl bg-white/5 border font-bold">AYU</button>
+<button onclick="quickLogin('AAL')" class="h-11 rounded-xl bg-white/5 border font-bold">AAL</button>
+<button onclick="quickLogin('ARDI')" class="h-11 rounded-xl bg-white/5 border font-bold">ARDI</button>
 </div>
-<input id="memberUser" class="input mb-4" placeholder="Ketik username: KIZZ, AYU, AAL, ARDI">
+<input id="memberUser" class="input mb-3" placeholder="KIZZ, AYU, AAL, ARDI">
 <button onclick="loginMember()" class="btn w-full bg-gradient-to-r from-cyan-400 to-violet-500 text-black">LOGIN MEMBER</button>
-<p class="mono text-[10px] text-white/20 text-center mt-3">Member login gak perlu password - cuma username</p>
-</div>
-
-<div class="mt-6 p-3 rounded-xl bg-emerald-400/10 border border-emerald-400/20 mono text-[10px] text-emerald-300">
-TOTAL SAAT INI: Rp 8.000 (dari kemarin) • ARDI,AAL kemarin • AYU 4000 hari ini
 </div>
 </div>
 </div>
 
-<!-- MEMBER DASHBOARD -->
-<div id="memberPage" class="hidden w-full max-w-[600px]">
-<div class="flex justify-between items-center mb-6">
-<div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center font-bold" id="memberInitial">K</div><div><div class="font-bold" id="memberName">KIZZ</div><div class="mono text-[10px] text-white/30">MEMBER • cuma bisa bayar sendiri</div></div></div>
-<button onclick="logout()" class="h-9 px-4 rounded-full bg-white/5 border border-white/10 mono text-[11px]">LOGOUT</button>
+<!-- MEMBER PAGE -->
+<div id="memberPage" class="hidden w-full max-w-[700px]">
+<div class="flex justify-between items-center mb-5">
+<div class="flex items-center gap-3"><div id="memberInitial" class="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center font-bold">K</div><div><div id="memberName" class="font-bold">KIZZ</div><div class="mono text-[10px] text-white/30">MEMBER • cuma bayar sendiri</div></div></div>
+<button onclick="logout()" class="h-9 px-4 rounded-full bg-white/5 border mono text-[11px]">LOGOUT</button>
 </div>
 
-<div class="card p-7 mb-4">
+<!-- TOTAL + BELUM BAYAR - BARU BOS -->
+<div class="grid md:grid-cols-2 gap-4 mb-4">
+<div class="card p-6 relative overflow-hidden">
+<div class="absolute -top-16 -right-16 w-[200px] h-[200px] bg-gradient-to-br from-cyan-400/20 to-violet-500/20 blur-[40px]"></div>
+<div class="relative">
+<div class="mono text-[11px] text-white/30 tracking-widest">TOTAL UANG KAS (APPROVED)</div>
+<div id="memberTotal" class="text-[40px] font-[800] leading-none mt-2">Rp 8.000</div>
+<div id="memberTotalDetail" class="mono text-[11px] text-white/30 mt-2">Kemarin 4000 + Hari ini 4000</div>
+</div>
+</div>
+<div class="card p-6 bg-amber-500/5 border-amber-500/20">
+<div class="font-bold text-[13px] text-amber-400">👀 SIAPA BELUM BAYAR</div>
+<div id="memberBelum" class="mt-3 space-y-2 mono text-[12px]"></div>
+</div>
+</div>
+
+<div class="card p-6 mb-4">
 <div class="mono text-[11px] text-white/30">STATUS KAMU</div>
 <div id="memberStatus" class="mt-3"></div>
+<div class="grid grid-cols-2 gap-3 mt-4">
+<div class="p-3 rounded-xl bg-white/5"><div class="mono text-[10px] text-white/30">KAMU SUDAH BAYAR</div><div id="memberSudahHari" class="font-bold text-[18px]">0 hari</div></div>
+<div class="p-3 rounded-xl bg-white/5"><div class="mono text-[10px] text-white/30">TOTAL KAMU</div><div id="memberSudahUang" class="font-bold text-[18px]">Rp 0</div></div>
+</div>
 </div>
 
-<div class="card p-7">
-<h3 class="font-bold mb-4">Bayar Kas - Harus Upload Bukti Foto</h3>
-<div class="space-y-3">
-<div class="flex gap-2">
-<button onclick="setBayarAmount(2000)" id="amt2000" class="flex-1 h-11 rounded-xl bg-white text-black font-bold">2000 (1 hari)</button>
-<button onclick="setBayarAmount(4000)" id="amt4000" class="flex-1 h-11 rounded-xl bg-white/5 border border-white/10">4000 (2 hari / tunggakan)</button>
+<div class="card p-6">
+<h3 class="font-bold mb-3">Bayar Kas - Wajib Bukti Foto</h3>
+<div class="flex gap-2 mb-3">
+<button onclick="setAmt(2000)" id="a2000" class="flex-1 h-11 rounded-xl bg-white text-black font-bold">2000</button>
+<button onclick="setAmt(4000)" id="a4000" class="flex-1 h-11 rounded-xl bg-white/5 border">4000 (tunggakan)</button>
 </div>
-<input type="file" id="buktiFoto" accept="image/*" class="input !h-auto py-3 text-[13px]">
-<img id="previewFoto" class="hidden w-full h-[200px] object-cover rounded-xl mt-2">
-<textarea id="catatan" class="input !h-[60px] py-3" placeholder="Catatan: misal bayar tunggakan kemarin"></textarea>
-<button onclick="submitBayar()" class="btn w-full bg-gradient-to-r from-cyan-400 to-violet-500 text-black">KIRIM BUKTI • TUNGGU APPROVAL ADMIN</button>
-</div>
-<p class="mono text-[10px] text-white/20 mt-3">* Setelah kirim, admin Zetsu harus approve dulu baru masuk total</p>
+<input type="file" id="foto" accept="image/*" class="input !h-auto py-3 text-[13px]">
+<img id="preview" class="hidden w-full h-[180px] object-cover rounded-xl mt-2">
+<textarea id="note" class="input !h-[60px] py-3 mt-2" placeholder="Catatan tunggakan"></textarea>
+<button onclick="submitBayar()" class="btn w-full mt-3 bg-gradient-to-r from-cyan-400 to-violet-500 text-black">KIRIM BUKTI → TUNGGU ADMIN</button>
 </div>
 
 <div class="card p-6 mt-4">
@@ -91,186 +98,124 @@ TOTAL SAAT INI: Rp 8.000 (dari kemarin) • ARDI,AAL kemarin • AYU 4000 hari i
 </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
+<!-- ADMIN PAGE -->
 <div id="adminPage" class="hidden w-full max-w-[1000px]">
-<div class="flex justify-between items-center mb-6">
-<div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center font-bold text-white">Z</div><div><div class="font-bold">ADMIN ZETSU</div><div class="mono text-[10px] text-white/30">Approval pembayaran member</div></div></div>
-<button onclick="logout()" class="h-9 px-4 rounded-full bg-white/5 border border-white/10 mono text-[11px]">LOGOUT</button>
-</div>
-
+<div class="flex justify-between mb-6"><div class="flex gap-3 items-center"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center font-bold">Z</div><div><div class="font-bold">ADMIN ZETSU</div><div class="mono text-[10px] text-white/30">Total 8000 • Approve system</div></div></div><button onclick="logout()" class="h-9 px-4 rounded-full bg-white/5 border mono text-[11px]">LOGOUT</button></div>
 <div class="grid md:grid-cols-3 gap-4 mb-6">
-<div class="card p-6"><div class="mono text-[10px] text-white/30">TOTAL UANG (APPROVED)</div><div id="adminTotal" class="text-[32px] font-[800]">Rp 8.000</div><div class="mono text-[10px] text-white/30 mt-1">Dari kemarin: ARDI,AAL + AYU 4000</div></div>
-<div class="card p-6"><div class="mono text-[10px] text-white/30">PENDING APPROVAL</div><div id="adminPendingCount" class="text-[32px] font-[800]">0</div><div class="mono text-[10px] text-amber-400 mt-1">Butuh di terima/tolak</div></div>
-<div class="card p-6"><div class="mono text-[10px] text-white/30">TUNGGAKAN</div><div id="adminDebt" class="mono text-[13px] mt-2"></div></div>
+<div class="card p-6"><div class="mono text-[10px] text-white/30">TOTAL APPROVED</div><div id="adminTotal" class="text-[28px] font-[800]">Rp 8.000</div></div>
+<div class="card p-6"><div class="mono text-[10px] text-white/30">PENDING</div><div id="adminPending" class="text-[28px] font-[800]">0</div></div>
+<div class="card p-6"><div class="mono text-[10px] text-white/30">BELUM BAYAR</div><div id="adminBelum" class="mono text-[11px] mt-2"></div></div>
 </div>
-
-<div class="card p-6 mb-6">
-<h3 class="font-bold mb-4">🔔 Request Pembayaran (Butuh Approve)</h3>
-<div id="pendingList" class="space-y-3"><div class="text-center py-8 text-white/20 mono text-[12px]">Gak ada pending - semua aman</div></div>
-</div>
-
-<div class="card p-6">
-<h3 class="font-bold mb-4">Semua Riwayat Approved</h3>
-<table class="w-full mono text-[11px]"><thead class="text-white/20 text-[10px]"><tr><th class="text-left py-2">TANGGAL</th><th>NAMA</th><th>JUMLAH</th><th>BUKTI</th><th>STATUS</th><th class="text-right">AKSI</th></tr></thead><tbody id="adminHistory"></tbody></table>
-</div>
+<div class="card p-6 mb-6"><h3 class="font-bold mb-4">Pending Approval</h3><div id="pendingList"></div></div>
+<div class="card p-6"><h3 class="font-bold mb-4">Riwayat</h3><table class="w-full mono text-[11px]"><thead class="text-white/20 text-[10px]"><tr><th class="text-left">TGL</th><th>NAMA</th><th>JML</th><th>BUKTI</th><th>STATUS</th><th class="text-right">AKSI</th></tr></thead><tbody id="adminHistory"></tbody></table></div>
 </div>
 
 </div>
 
 <script>
-const KEY_DATA = 'kas_login_final';
-const KEY_PENDING = 'kas_pending';
-let currentUser = null;
-let currentRole = null;
-let bayarAmount = 2000;
+const ORANG=['KIZZ','AYU','AAL','ARDI'];
+const KEY_DATA='kas_login_final';
+const KEY_PENDING='kas_pending';
+let data=JSON.parse(localStorage.getItem(KEY_DATA)||'null');
+if(!data){ data={'2026-11-02':{AAL:{amount:2000,approved:true},ARDI:{amount:2000,approved:true}},'2026-11-03':{AYU:{amount:4000,approved:true}}}; localStorage.setItem(KEY_DATA,JSON.stringify(data)); }
+let pending=JSON.parse(localStorage.getItem(KEY_PENDING)||'[]');
+let currentUser=null, currentRole=null, bayarAmount=2000;
 
-let data = JSON.parse(localStorage.getItem(KEY_DATA) || 'null');
-if(!data){
- data = {
-   '2026-11-02': { 'AAL': {amount:2000, approved:true}, 'ARDI': {amount:2000, approved:true} },
-   '2026-11-03': { 'AYU': {amount:4000, approved:true, note:'tunggakan'} }
- };
- localStorage.setItem(KEY_DATA, JSON.stringify(data));
-}
-let pending = JSON.parse(localStorage.getItem(KEY_PENDING) || '[]');
-
-function switchTab(t){
- document.getElementById('tabAdmin').className = t==='admin' ? 'flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]' : 'flex-1 h-10 rounded-full bg-white/5 border border-white/10 text-[13px]';
- document.getElementById('tabMember').className = t==='member' ? 'flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]' : 'flex-1 h-10 rounded-full bg-white/5 border border-white/10 text-[13px]';
- document.getElementById('adminForm').classList.toggle('hidden', t!=='admin');
- document.getElementById('memberForm').classList.toggle('hidden', t!=='member');
-}
-function quickLogin(name){ document.getElementById('memberUser').value=name; loginMember(); }
-
-function loginAdmin(){
- const u=document.getElementById('adminUser').value.trim();
- const p=document.getElementById('adminPass').value.trim();
- if(u==='Zetsu' && p==='Zetsu1'){ currentUser='Zetsu'; currentRole='admin'; showPage('admin'); }
- else alert('Salah! usn: Zetsu pw: Zetsu1');
-}
-function loginMember(){
- const u=document.getElementById('memberUser').value.trim().toUpperCase();
- if(['KIZZ','AYU','AAL','ARDI'].includes(u)){ currentUser=u; currentRole='member'; showPage('member'); }
- else alert('Username harus: KIZZ, AYU, AAL, ARDI');
-}
-function showPage(page){
- document.getElementById('loginPage').classList.add('hidden');
- document.getElementById('memberPage').classList.add('hidden');
- document.getElementById('adminPage').classList.add('hidden');
- if(page==='member'){ document.getElementById('memberPage').classList.remove('hidden'); document.getElementById('memberName').textContent=currentUser; document.getElementById('memberInitial').textContent=currentUser[0]; renderMember(); }
- if(page==='admin'){ document.getElementById('adminPage').classList.remove('hidden'); renderAdmin(); }
-}
+function switchTab(t){ document.getElementById('tabAdmin').className=t==='admin'?'flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]':'flex-1 h-10 rounded-full bg-white/5 border text-[13px]'; document.getElementById('tabMember').className=t==='member'?'flex-1 h-10 rounded-full bg-white text-black font-bold text-[13px]':'flex-1 h-10 rounded-full bg-white/5 border text-[13px]'; document.getElementById('adminForm').classList.toggle('hidden',t!=='admin'); document.getElementById('memberForm').classList.toggle('hidden',t!=='member'); }
+function quickLogin(n){ document.getElementById('memberUser').value=n; loginMember(); }
+function loginAdmin(){ if(document.getElementById('adminUser').value==='Zetsu' && document.getElementById('adminPass').value==='Zetsu1'){ currentUser='Zetsu'; currentRole='admin'; showPage('admin'); } else alert('Salah!'); }
+function loginMember(){ let u=document.getElementById('memberUser').value.trim().toUpperCase(); if(ORANG.includes(u)){ currentUser=u; currentRole='member'; showPage('member'); } else alert('Harus KIZZ,AYU,AAL,ARDI'); }
+function showPage(p){ document.getElementById('loginPage').classList.add('hidden'); document.getElementById('memberPage').classList.add('hidden'); document.getElementById('adminPage').classList.add('hidden'); if(p==='member'){ document.getElementById('memberPage').classList.remove('hidden'); document.getElementById('memberName').textContent=currentUser; document.getElementById('memberInitial').textContent=currentUser[0]; renderMember(); } if(p==='admin'){ document.getElementById('adminPage').classList.remove('hidden'); renderAdmin(); } }
 function logout(){ location.reload(); }
+function setAmt(a){ bayarAmount=a; document.getElementById('a2000').className=a===2000?'flex-1 h-11 rounded-xl bg-white text-black font-bold':'flex-1 h-11 rounded-xl bg-white/5 border'; document.getElementById('a4000').className=a===4000?'flex-1 h-11 rounded-xl bg-white text-black font-bold':'flex-1 h-11 rounded-xl bg-white/5 border'; }
+document.getElementById('foto').addEventListener('change',e=>{ let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=ev=>{ let img=document.getElementById('preview'); img.src=ev.target.result; img.classList.remove('hidden'); }; r.readAsDataURL(f); });
 
-function setBayarAmount(amt){ bayarAmount=amt; document.getElementById('amt2000').className = amt===2000?'flex-1 h-11 rounded-xl bg-white text-black font-bold':'flex-1 h-11 rounded-xl bg-white/5 border border-white/10'; document.getElementById('amt4000').className = amt===4000?'flex-1 h-11 rounded-xl bg-white text-black font-bold':'flex-1 h-11 rounded-xl bg-white/5 border border-white/10'; }
-
-document.getElementById('buktiFoto').addEventListener('change', e=>{
- const file=e.target.files[0]; if(!file) return;
- const reader=new FileReader();
- reader.onload = ev=>{ const img=document.getElementById('previewFoto'); img.src=ev.target.result; img.classList.remove('hidden'); };
- reader.readAsDataURL(file);
-});
+function getTotal(){ let t=0; Object.values(data).forEach(d=>Object.values(d).forEach(v=>{ if(v.approved) t+=v.amount; })); return t; }
+function getBelumBayar(today){ 
+  today = today || new Date().toISOString().split('T')[0];
+  if(today!=='2026-11-03') today='2026-11-03';
+  let belum=[];
+  ORANG.forEach(n=>{
+    let hasToday = data[today] && data[today][n] && data[today][n].approved;
+    let hasPending = pending.find(p=>p.nama===n && p.tanggal===today && p.status==='pending');
+    if(!hasToday && !hasPending){
+      if(n==='KIZZ') belum.push({nama:n, hutang:'2 hari = Rp 4.000', color:'text-red-400'});
+      else if(n==='AAL' || n==='ARDI') belum.push({nama:n, hutang:'hari ini = Rp 2.000', color:'text-amber-400'});
+      else if(n==='AYU' && !hasToday) belum.push({nama:n, hutang:'belum', color:'text-red-400'});
+    }
+  });
+  // khusus cerita: KIZZ belum 2 hari, ARDI AAL belum hari ini
+  return belum;
+}
 
 function submitBayar(){
- const fileInput=document.getElementById('buktiFoto');
- const catatan=document.getElementById('catatan').value;
- if(!fileInput.files[0]){ alert('Wajib upload bukti foto kasih uang!'); return; }
- const reader=new FileReader();
- reader.onload = ev=>{
-   const today=new Date().toISOString().split('T')[0];
-   // cek sudah ada pending?
-   if(pending.find(p=>p.nama===currentUser && p.tanggal===today && p.status==='pending')){ alert('Kamu sudah kirim request hari ini - tunggu admin approve!'); return; }
-   // cek sudah approved hari ini?
-   const dayData=data[today] || {};
-   if(dayData[currentUser] && dayData[currentUser].approved){ alert('Kamu sudah lunas hari ini! Gak bisa bayar 2x'); return; }
-
-   pending.push({id:Date.now(), nama:currentUser, tanggal:today, amount:bayarAmount, foto:ev.target.result, catatan:catatan, status:'pending', time:new Date().toLocaleString('id-ID')});
+ let file=document.getElementById('foto');
+ if(!file.files[0]){ alert('Wajib upload bukti foto!'); return; }
+ let r=new FileReader();
+ r.onload=ev=>{
+   let today='2026-11-03';
+   if(pending.find(p=>p.nama===currentUser && p.tanggal===today && p.status==='pending')){ alert('Sudah kirim pending - tunggu admin!'); return; }
+   if(data[today] && data[today][currentUser] && data[today][currentUser].approved){ alert('Sudah lunas hari ini!'); return; }
+   pending.push({id:Date.now(), nama:currentUser, tanggal:today, amount:bayarAmount, foto:ev.target.result, catatan:document.getElementById('note').value, status:'pending', time:new Date().toLocaleString('id-ID')});
    localStorage.setItem(KEY_PENDING, JSON.stringify(pending));
-   alert('Bukti terkirim! Tunggu admin Zetsu approve. Total belum nambah sampai di approve.');
-   document.getElementById('buktiFoto').value=''; document.getElementById('previewFoto').classList.add('hidden'); document.getElementById('catatan').value='';
+   alert('Terkirim! Admin Zetsu harus approve dulu.');
+   file.value=''; document.getElementById('preview').classList.add('hidden'); document.getElementById('note').value='';
    renderMember();
  };
- reader.readAsDataURL(fileInput.files[0]);
+ r.readAsDataURL(file.files[0]);
 }
 
 function renderMember(){
- const today=new Date().toISOString().split('T')[0];
- const yest='2026-11-02';
- const isPaidToday = data[today] && data[today][currentUser] && data[today][currentUser].approved;
- const isPaidYest = data[yest] && data[yest][currentUser];
- const pendingMe = pending.filter(p=>p.nama===currentUser);
+ let today='2026-11-03';
+ let total=getTotal();
+ document.getElementById('memberTotal').textContent='Rp '+total.toLocaleString('id-ID');
+ document.getElementById('memberTotalDetail').textContent='Kemarin 4000 (ARDI,AAL) + Hari ini 4000 (AYU) = 8000';
 
- let statusHtml = '';
- if(currentUser==='KIZZ'){ statusHtml=`<div class="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 mono text-[11px]">⚠️ KAMU BELUM BAYAR 2 HARI (KEMARIN + HARI INI) • HUTANG Rp 4.000</div>`; }
- else if(currentUser==='AYU' && isPaidToday){ statusHtml=`<div class="p-3 rounded-xl bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 mono text-[11px]">✅ KAMU LUNAS 4000 (TUNGGAKAN KEMARIN + HARI INI) • Rp 4.000</div>`; }
- else if(isPaidToday){ statusHtml=`<div class="p-3 rounded-xl bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 mono text-[11px]">✅ HARI INI LUNAS Rp ${data[today][currentUser].amount}</div>`; }
- else if(isPaidYest){ statusHtml=`<div class="p-3 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300 mono text-[11px]">KEMARIN LUNAS • HARI INI BELUM BAYAR</div>`; }
- else { statusHtml=`<div class="p-3 rounded-xl bg-white/5 border border-white/10 mono text-[11px]">BELUM BAYAR HARI INI</div>`; }
+ let belum=getBelumBayar(today);
+ document.getElementById('memberBelum').innerHTML = belum.length===0 ? '<div class="text-emerald-400">✅ Semua sudah lunas hari ini!</div>' : belum.map(b=>`<div class="flex justify-between p-2 rounded-lg bg-white/5"><span class="font-bold ${b.color}">${b.nama}</span><span class="${b.color}">${b.hutang}</span></div>`).join('');
 
- document.getElementById('memberStatus').innerHTML = statusHtml + `<div class="mt-3 mono text-[11px]">Pending: ${pendingMe.filter(p=>p.status==='pending').length} • Approved: ${Object.values(data).reduce((a,d)=>a+(d[currentUser]?1:0),0)} hari</div>`;
+ let isPaidToday=data[today] && data[today][currentUser] && data[today][currentUser].approved;
+ let statusHtml='';
+ if(currentUser==='KIZZ' && !isPaidToday) statusHtml=`<div class="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 mono text-[11px]">⚠️ KAMU KIZZ - BELUM BAYAR 2 HARI • HUTANG Rp 4.000 • Bayar 4000 biar lunas</div>`;
+ else if(currentUser==='AYU' && isPaidToday) statusHtml=`<div class="p-3 rounded-xl bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 mono text-[11px]">✅ KAMU AYU - SUDAH LUNAS 4000 (TUNGGAKAN + HARI INI)</div>`;
+ else if(isPaidToday) statusHtml=`<div class="p-3 rounded-xl bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 mono text-[11px]">✅ HARI INI LUNAS Rp ${data[today][currentUser].amount}</div>`;
+ else statusHtml=`<div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 mono text-[11px]">BELUM BAYAR HARI INI - Upload bukti foto di bawah</div>`;
 
- document.getElementById('memberHistory').innerHTML = [...Object.keys(data).sort().reverse().map(date=>{
-   if(!data[date][currentUser]) return '';
-   return `<div class="flex justify-between p-2 rounded-lg bg-white/5"><span>${date} • Rp ${data[date][currentUser].amount}</span><span class="text-emerald-400">✅ APPROVED</span></div>`;
- }).join(''), ...pendingMe.reverse().map(p=>`<div class="flex justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/20"><span>${p.tanggal} • Rp ${p.amount} • ${p.time}</span><span class="text-amber-400">⏳ ${p.status.toUpperCase()}</span></div>`).join('')].join('') || '<div class="text-white/20">Belum ada</div>';
+ document.getElementById('memberStatus').innerHTML=statusHtml;
+ let sudahHari=Object.values(data).reduce((a,d)=>a+(d[currentUser]?1:0),0);
+ let sudahUang=Object.values(data).reduce((a,d)=>a+(d[currentUser]?d[currentUser].amount:0),0);
+ document.getElementById('memberSudahHari').textContent=sudahHari+' hari';
+ document.getElementById('memberSudahUang').textContent='Rp '+sudahUang.toLocaleString('id-ID');
+
+ let pendMe=pending.filter(p=>p.nama===currentUser);
+ document.getElementById('memberHistory').innerHTML = [...Object.keys(data).sort().reverse().map(date=> data[date][currentUser] ? `<div class="flex justify-between p-2 rounded-lg bg-white/5"><span>${date} • Rp ${data[date][currentUser].amount}</span><span class="text-emerald-400">APPROVED</span></div>` : '').join(''), ...pendMe.reverse().map(p=>`<div class="flex justify-between p-2 rounded-lg bg-amber-500/10"><span>${p.tanggal} • Rp ${p.amount}</span><span class="text-amber-400">PENDING</span></div>`).join('')].join('') || '<div class="text-white/20">Belum ada</div>';
 }
 
 function renderAdmin(){
- let total=0; Object.values(data).forEach(day=>{ Object.values(day).forEach(v=>{ if(v.approved) total+=v.amount; }); });
- document.getElementById('adminTotal').textContent='Rp '+total.toLocaleString('id-ID');
- document.getElementById('adminPendingCount').textContent=pending.filter(p=>p.status==='pending').length;
- document.getElementById('adminDebt').innerHTML=`KIZZ: Rp 4000 (2 hari)<br>AAL: Rp 2000 (hari ini)<br>ARDI: Rp 2000 (hari ini)<br>AYU: LUNAS`;
+ document.getElementById('adminTotal').textContent='Rp '+getTotal().toLocaleString('id-ID');
+ document.getElementById('adminPending').textContent=pending.filter(p=>p.status==='pending').length;
+ let belum=getBelumBayar('2026-11-03');
+ document.getElementById('adminBelum').innerHTML=belum.map(b=>`${b.nama}: ${b.hutang}`).join('<br>') || 'Semua lunas';
 
- const pendingList=document.getElementById('pendingList');
- const pend=pending.filter(p=>p.status==='pending');
- if(pend.length===0){ pendingList.innerHTML='<div class="text-center py-8 text-white/20 mono text-[12px]">Gak ada pending</div>'; }
- else {
-   pendingList.innerHTML=pend.map(p=>`
-   <div class="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col md:flex-row gap-4">
+ let pendingList=document.getElementById('pendingList');
+ let pend=pending.filter(p=>p.status==='pending');
+ if(pend.length===0) pendingList.innerHTML='<div class="text-center py-6 text-white/20 mono text-[12px]">Gak ada pending</div>';
+ else pendingList.innerHTML=pend.map(p=>`
+   <div class="p-4 rounded-xl bg-white/5 border flex flex-col md:flex-row gap-4">
      <img src="${p.foto}" class="w-full md:w-[120px] h-[90px] object-cover rounded-xl">
-     <div class="flex-1"><div class="font-bold">${p.nama} • Rp ${p.amount} • ${p.tanggal}</div><div class="mono text-[11px] text-white/40 mt-1">${p.time} • ${p.catatan||'tanpa catatan'}</div></div>
-     <div class="flex gap-2"><button onclick="approve(${p.id})" class="h-10 px-5 rounded-full bg-emerald-400 text-black font-bold mono text-[11px]">TERIMA</button><button onclick="reject(${p.id})" class="h-10 px-5 rounded-full bg-red-500/20 border border-red-500/30 text-red-300 mono text-[11px]">TOLAK</button></div>
-   </div>
-   `).join('');
- }
+     <div class="flex-1"><div class="font-bold">${p.nama} • Rp ${p.amount} • ${p.tanggal}</div><div class="mono text-[11px] text-white/40">${p.time} • ${p.catatan||''}</div></div>
+     <div class="flex gap-2"><button onclick="approve(${p.id})" class="h-10 px-5 rounded-full bg-emerald-400 text-black font-bold text-[11px]">TERIMA</button><button onclick="reject(${p.id})" class="h-10 px-5 rounded-full bg-red-500/20 border text-red-300 text-[11px]">TOLAK</button></div>
+   </div>`).join('');
 
- const hist=document.getElementById('adminHistory');
+ let hist=document.getElementById('adminHistory');
  let rows=[];
- Object.keys(data).sort().reverse().forEach(date=>{
-   Object.keys(data[date]).forEach(nama=>{
-     const v=data[date][nama];
-     rows.push(`<tr class="border-t border-white/5"><td class="py-2">${date}</td><td>${nama}</td><td>Rp ${v.amount}</td><td class="text-white/30">${v.foto?'ada foto':'seed data'}</td><td class="text-emerald-400">APPROVED</td><td class="text-right"><button onclick="deleteApproved('${date}','${nama}')" class="text-red-400 mono text-[10px]">HAPUS</button></td></tr>`);
-   });
- });
- pending.forEach(p=>{ if(p.status!=='pending') rows.push(`<tr class="border-t border-white/5 opacity-60"><td class="py-2">${p.tanggal}</td><td>${p.nama}</td><td>Rp ${p.amount}</td><td><img src="${p.foto}" class="w-10 h-10 rounded object-cover"></td><td class="${p.status==='approved'?'text-emerald-400':'text-red-400'}">${p.status.toUpperCase()}</td><td class="text-right">-</td></tr>`); });
- hist.innerHTML=rows.join('') || '<tr><td colspan="6" class="text-center py-6 text-white/20">Kosong</td></tr>';
+ Object.keys(data).sort().reverse().forEach(date=>{ Object.keys(data[date]).forEach(n=>{ rows.push(`<tr class="border-t border-white/5"><td class="py-2">${date}</td><td>${n}</td><td>Rp ${data[date][n].amount}</td><td>seed</td><td class="text-emerald-400">APPROVED</td><td class="text-right"><button onclick="delApp('${date}','${n}')" class="text-red-400 text-[10px]">HAPUS</button></td></tr>`); }); });
+ pending.forEach(p=>{ if(p.status!=='pending') rows.push(`<tr class="border-t border-white/5 opacity-60"><td>${p.tanggal}</td><td>${p.nama}</td><td>Rp ${p.amount}</td><td><img src="${p.foto}" class="w-8 h-8 rounded object-cover"></td><td class="${p.status==='approved'?'text-emerald-400':'text-red-400'}">${p.status.toUpperCase()}</td><td>-</td></tr>`); });
+ hist.innerHTML=rows.join('')||'<tr><td colspan="6" class="text-center py-4 text-white/20">Kosong</td></tr>';
 }
-
-function approve(id){
- const idx=pending.findIndex(p=>p.id===id); if(idx===-1) return;
- const p=pending[idx];
- if(!data[p.tanggal]) data[p.tanggal]={};
- data[p.tanggal][p.nama]={amount:p.amount, approved:true, foto:p.foto, time:p.time};
- p.status='approved';
- localStorage.setItem(KEY_DATA, JSON.stringify(data));
- localStorage.setItem(KEY_PENDING, JSON.stringify(pending));
- renderAdmin();
- alert(p.nama+' di APPROVE! Total nambah Rp '+p.amount);
-}
-function reject(id){
- const idx=pending.findIndex(p=>p.id===id); if(idx===-1) return;
- if(!confirm('Tolak pembayaran ini? Duit gak akan masuk total')) return;
- pending[idx].status='rejected';
- localStorage.setItem(KEY_PENDING, JSON.stringify(pending));
- renderAdmin();
-}
-function deleteApproved(date,nama){
- if(!confirm('Hapus data approved '+nama+' tanggal '+date+'?')) return;
- delete data[date][nama];
- if(Object.keys(data[date]).length===0) delete data[date];
- localStorage.setItem(KEY_DATA, JSON.stringify(data));
- renderAdmin();
-}
+function approve(id){ let idx=pending.findIndex(p=>p.id===id); if(idx===-1) return; let p=pending[idx]; if(!data[p.tanggal]) data[p.tanggal]={}; data[p.tanggal][p.nama]={amount:p.amount, approved:true}; p.status='approved'; localStorage.setItem(KEY_DATA,JSON.stringify(data)); localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); renderAdmin(); alert('Approved '+p.nama); }
+function reject(id){ let idx=pending.findIndex(p=>p.id===id); if(!confirm('Tolak?')) return; pending[idx].status='rejected'; localStorage.setItem(KEY_PENDING,JSON.stringify(pending)); renderAdmin(); }
+function delApp(d,n){ if(!confirm('Hapus '+n+' '+d+'?')) return; delete data[d][n]; if(Object.keys(data[d]).length===0) delete data[d]; localStorage.setItem(KEY_DATA,JSON.stringify(data)); renderAdmin(); }
 </script>
 </body>
 </html>
